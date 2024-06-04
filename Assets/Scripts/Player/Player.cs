@@ -11,13 +11,19 @@ public class Player : MonoBehaviour
     private Vector3 _direction;
     void Start()
     {
-        _moveController = new MoveController(transform, _speed);
+        _moveController = new MoveController(transform, _speed, _jumpForce);
     }
 
     
     void Update()
     {
+        Walk();
         
+    }
+
+    private void Walk()
+    {
+        _moveController.Move(new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")));
     }
 
     public void ReciveLife(int value)
@@ -39,5 +45,10 @@ public class Player : MonoBehaviour
             life = 0;
             
         }
+    }
+
+    private void Dead()
+    {
+
     }
 }

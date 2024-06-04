@@ -4,26 +4,32 @@ using UnityEngine;
 
 public class MoveController 
 {
-    Transform _transform;
-    float _speed;
+    public Transform transform;
+    public float _speed;
+    private float _jumpForce;
     private float _xAxis;
     private float _zAxis;
     private Rigidbody _rB;
-    public MoveController (Transform t, float speed)
+    public MoveController (Transform t, float speed, float jumpForce)
     {
-        _transform = t;
+        this.transform = t;
         _speed = speed;
+        _jumpForce = jumpForce;
     }
-    public void Move(float vertical, float horizontal)
+    public void Move(Vector3 dir)
     {
-        _xAxis = Input.GetAxis("Horizontal");
-        _zAxis = Input.GetAxis("Vertical");
-        _direction = (this._transform.right * _xAxis + this._transform.forward * _zAxis) * _speed;
-        _rB.velocity = new Vector3(_direction.x, _rB.velocity.y, _direction.z);
+        transform.position += dir.normalized * _speed * Time.deltaTime;
+        //dir = (this.transform.right * _xAxis + this.transform.forward * _zAxis) * _speed * Time.deltaTime;
+        //_rB.velocity = new Vector3(dir.x, _rB.velocity.y, dir.z);
+
     }
 
-    private void Jump()
+    public void Jump()
     {
-        _rB.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            //_rB.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+        }
+            
     }
 }
