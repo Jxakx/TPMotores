@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Snake : MonoBehaviour
 {
-    [SerializeField] int life = 20;
+    
     [SerializeField] GameObject VenomBallPrefab;
     [SerializeField] int turningSpeed;
     [SerializeField] int UpDownSpeed;
