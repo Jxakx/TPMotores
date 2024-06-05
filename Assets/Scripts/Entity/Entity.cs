@@ -53,16 +53,20 @@ public class Entity : MonoBehaviour
 
     public void LookPlayer()
     {
-        //Calcula distancia entre entidad y player
-        float distanceToPlayer = Vector3.Distance(transform.position, targetPlayer.position);
-
-        if (distanceToPlayer < distanceRange)
+        if(targetPlayer != null)
         {
-            //Calcula la dirección desde la posición actual de la entidad hacia la posición del Player
-            directionTarget = (targetPlayer.position - transform.position).normalized;
-            //Ajusta la orientación de la entidad para que mire en la dirección del Player
-            transform.forward = directionTarget;
+            //Calcula distancia entre entidad y player
+            float distanceToPlayer = Vector3.Distance(transform.position, targetPlayer.position);
+
+            if (distanceToPlayer <= distanceRange)
+            {
+                //Calcula la dirección desde la posición actual de la entidad hacia la posición del Player
+                directionTarget = (targetPlayer.position - transform.position).normalized;
+                //Ajusta la orientación de la entidad para que mire en la dirección del Player
+                transform.forward = directionTarget;
+            }
         }
+        
         
     }
 }
