@@ -179,7 +179,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 171728389}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7b042bf1ddcef3c478319ad9be5f42a0, type: 3}
   m_Name: 
@@ -297,9 +297,9 @@ MonoBehaviour:
   chronometer: 0
   angle: {x: 0, y: 0, z: 0, w: 0}
   grade: 0
-  speed: 0
-  distance: 0
-  targetPlayer: {fileID: 0}
+  speed: 5
+  distance: 19
+  targetPlayer: {fileID: 1939918132}
 --- !u!1 &592487926
 GameObject:
   m_ObjectHideFlags: 0
@@ -584,8 +584,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.018017545, y: 0.96767956, z: -0.24090135, w: 0.07237489}
-  m_LocalPosition: {x: -4.62, y: 7.8, z: 13.01}
+  m_LocalRotation: {x: 0.021584315, y: 0.9697665, z: -0.22441088, w: 0.09341736}
+  m_LocalPosition: {x: -26.6266, y: 30.893492, z: 74.73955}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -762,9 +762,9 @@ GameObject:
   - component: {fileID: 1939918135}
   - component: {fileID: 1939918134}
   - component: {fileID: 1939918138}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PlayerPrueba
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -778,7 +778,7 @@ Transform:
   m_GameObject: {fileID: 1939918132}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.56, y: 1.5999999, z: 32.25}
+  m_LocalPosition: {x: -17.27, y: 1.5999999, z: 45.47}
   m_LocalScale: {x: 1.2828, y: 1.2828, z: 1.2828}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -791,7 +791,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1939918132}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 97bf9ac992f71fd4cac3d6a35611a8da, type: 3}
   m_Name: 
@@ -877,7 +877,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1939918132}
   serializedVersion: 4
-  m_Mass: 10
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
