@@ -1,18 +1,58 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class Golem : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public int routine;
+    public float chronometer;
+    public Quaternion angle;
+    public float grade;
+    public float speed;
+
+    public int distance;
+
+    public GameObject targetPlayer;
+
     void Start()
     {
-        
+        targetPlayer = GameObject.Find("PlayerPrueba");
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        walk();
+    }
+
+    public void walk()
+    {
+        if(Vector3.Distance(transform.position, targetPlayer.transform.position) > distance)
+        {
+
+        }
+
+        chronometer += 1 * Time.deltaTime;
+
+        if(chronometer > 4)
+        {
+            routine = Random.Range(0, 2);
+            chronometer = 0;
+        }
+
+        switch(routine)
+        {
+            case 1:
+                grade = Random.Range(0, 360);
+                angle = Quaternion.Euler(0f, grade, 0f);
+                transform.Translate(Vector3.forward * speed * Time.deltaTime);
+                routine++;
+                break;
+
+            case 2:
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, angle, 0.5f);
+                transform.Translate(Vector3.forward * speed * 2 * Time.deltaTime);
+                break;
+        }
     }
 }
