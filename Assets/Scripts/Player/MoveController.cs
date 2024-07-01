@@ -7,7 +7,7 @@ public class MoveController
 {
     private Transform _transform;
     private float _speed;
-    private float _jumpForce = 10f;
+    private float _jumpForce;
     private Rigidbody _rB;
 
     // Constructor
