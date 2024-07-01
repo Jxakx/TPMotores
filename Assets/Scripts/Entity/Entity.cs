@@ -8,11 +8,15 @@ public class Entity : MonoBehaviour
     public int damageAttack;
     public int score;
 
-    public int distanceRange; //Rango en el cual la entidad mirará al jugador
+    public int visionRange; //Rango en el cual la entidad mirará al jugador
+    public int actionRange;
+    public float rotationSpeed; //Velocidad de rotación de la entidad
 
     public Vector3 directionTarget; //Distancia que ve al Player
-    public Transform targetPlayer; //Para saber donde está el Player siempre
+    public Transform Player; //Para saber donde está el Player siempre
+    //Para tener el transform de la entidad, basta con colocar transfrom.position.
 
+    public LayerMask detectableLayers;
 
     void Start()
     {
@@ -21,9 +25,61 @@ public class Entity : MonoBehaviour
 
     void Update()
     {
-        LookPlayer(); //Para que se actualice y siempre mire al objetivo.
-        takeDamage();
+        bool playerInRange = Vector3.Distance(transform.position, Player.position) < visionRange; //Distancia entre el enemigo y el jugador. 
         
+        if(playerInRange == true)
+        {
+            print("Jugador dentro del rango");
+            Vector3 directionToPlayer = (Player.position-transform.position).normalized; //Calcula la dirección. 
+            directionToPlayer.y = 0;
+
+            Debug.DrawRay(transform.position, directionToPlayer * visionRange, Color.red); 
+
+            if(Physics.Raycast(transform.position, directionToPlayer, out RaycastHit hit,visionRange,detectableLayers)) //Rayito real si ve o no al player.
+            {
+                if (hit.transform.CompareTag("Player"))
+                {
+                    print("Te veo");
+                    LookPlayer(); 
+                }
+                else
+                {
+                    print("No te veo");
+                }
+            }
+
+        }
+        else
+        {
+            print("Jugador fuera del rango");
+        }
+
+        takeDamage();
+                
+    }
+
+    public void LookPlayer()
+    {
+        Vector3 directionToPlayer = (Player.position - transform.position).normalized; //Calcula la dirección. 
+        directionToPlayer.y = 0;
+
+        Quaternion desiredRotation = Quaternion.LookRotation(directionToPlayer);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRotation, rotationSpeed * Time.deltaTime); //Girar al jugador.
+
+        Debug.DrawRay(transform.position, transform.forward * actionRange, Color.blue); //Esta vez, al entrar en el rango de acción, se puede ejecutar tal cosa, ej, disparar.
+
+        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, actionRange, detectableLayers)) //Rayito real si ve o no al player.
+        {
+            if (hit.transform.CompareTag("Player"))
+            {
+                print("Te veo");
+            }
+            else
+            {
+                print("No te veo");
+            }
+        }
+
     }
 
     public void takeDamage()
@@ -51,18 +107,6 @@ public class Entity : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void LookPlayer()
-    {
-        //Calcula distancia entre entidad y player
-        float distanceToPlayer = Vector3.Distance(transform.position, targetPlayer.position);
-
-        if (distanceToPlayer < distanceRange)
-        {
-            //Calcula la dirección desde la posición actual de la entidad hacia la posición del Player
-            directionTarget = (targetPlayer.position - transform.position).normalized;
-            //Ajusta la orientación de la entidad para que mire en la dirección del Player
-            transform.forward = directionTarget;
-        }
-        
-    }
+    
+    
 }
