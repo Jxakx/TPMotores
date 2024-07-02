@@ -9,6 +9,7 @@ public class MoveController
     private float _speed;
     private float _jumpForce;
     private Rigidbody _rB;
+    
 
     // Constructor
     public MoveController(Transform transform, float speed, float jumpForce, Rigidbody rB)
@@ -25,9 +26,10 @@ public class MoveController
         _rB.velocity = new Vector3(moveDirection.x * _speed, _rB.velocity.y, moveDirection.z * _speed);
     }
 
-    public void Jump()
+    public void Jump(bool isGrounded)
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             _rB.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
         }

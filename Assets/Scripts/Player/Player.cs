@@ -5,11 +5,12 @@ using UnityEngine;
 //TP2 Joaquin Lopez
 public class Player : MonoBehaviour
 {
-    [SerializeField] private float life = 10f;
-    [SerializeField] private float _speed = 5f;
-    [SerializeField] private float _jumpForce = 10f;
+    [SerializeField] private float life;
+    [SerializeField] private float _speed;
+    [SerializeField] private float _jumpForce;
     private Rigidbody _rB;
     private MoveController _moveController;
+    [SerializeField] public bool isGrounded;
 
     private void Awake()
     {
@@ -35,7 +36,7 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
-        _moveController.Jump();
+        _moveController.Jump(isGrounded);
     }
 
     public void ReciveLife(int value)
@@ -54,8 +55,23 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Suelo"))
+        {
+            isGrounded = true;
+        }
+    }
+
+    public void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Suelo"))
+        {
+            isGrounded = false;
+        }
+    }
     private void Dead()
     {
-        // Lógica para la muerte del personaje
+        Destroy(GetComponent<Player>(), 1);
     }
 }
