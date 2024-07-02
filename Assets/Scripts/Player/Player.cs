@@ -5,9 +5,9 @@ using UnityEngine;
 //TP2 Joaquin Lopez
 public class Player : MonoBehaviour
 {
-    [SerializeField] private float life = 10f;
-    [SerializeField] private float _speed = 5f;
-    [SerializeField] private float _jumpForce = 10f;
+    [SerializeField] private float life;
+    [SerializeField] private float _speed;
+    [SerializeField] private float _jumpForce;
     private Rigidbody _rB;
     private MoveController _moveController;
     [SerializeField] public bool isGrounded;
@@ -72,6 +72,6 @@ public class Player : MonoBehaviour
     }
     private void Dead()
     {
-        // Lógica para la muerte del personaje
+        Destroy(GetComponent<Player>(), 1);
     }
 }
