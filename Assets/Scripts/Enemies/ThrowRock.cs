@@ -22,7 +22,7 @@ public class ThrowRock : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
 
-        PlayerPrueba player = collision.gameObject.GetComponent<PlayerPrueba>();
+        Player player = collision.gameObject.GetComponent<Player>();
         if (player != null)
         {
             Destroy(this.gameObject);

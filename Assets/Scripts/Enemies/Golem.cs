@@ -15,6 +15,16 @@ public class Golem : Entity
     private float counter;
     public float timer;
 
+    public float distanceToPlayer;
+
+    public float distanceJumpAttack;
+    public float distanceRockAttack;
+    public float distancePunchAttack;
+
+    public Transform punchArm;
+    private bool isPunching;
+    private Vector3 initialPunchArmPosition;
+
     public Transform pointRock;
     [SerializeField] public GameObject rock;
     [SerializeField] Transform puntoDeDisparo;
@@ -28,6 +38,7 @@ public class Golem : Entity
 
     void Update()
     {
+        distanceToPlayer = Vector3.Distance(transform.position, targetPlayer.transform.position);
         walk();
     }
 
@@ -59,7 +70,7 @@ public class Golem : Entity
                     break;
             }
         }
-        else
+        else 
         {
             counter += Time.deltaTime;
 
@@ -78,7 +89,19 @@ public class Golem : Entity
 
                 if (hit.transform.CompareTag("Player"))
                 {
-                    attackRock();                    
+                    if(distanceToPlayer <= distanceRockAttack && distanceToPlayer >= distancePunchAttack)
+                    {
+                        attackRock();
+                        print("Tiro Roca");
+                    }
+                    else if (distanceToPlayer <= distancePunchAttack)
+                    {
+                        if (!isPunching)
+                        {
+                            StartCoroutine(PunchAttack());
+                        }
+                        print("Tiro puño");
+                    }
                 }
 
             }
@@ -95,5 +118,37 @@ public class Golem : Entity
             Instantiate(rock, pointRock.position, pointRock.rotation);
         }
 
+    }
+
+    private IEnumerator PunchAttack()
+    {
+        isPunching = true;
+
+        // Posición inicial es la posición local actual del PunchArm
+        Vector3 startPos = punchArm.localPosition;
+
+        // Posición final es un poco adelante y ligeramente hacia el jugador
+        Vector3 endPos = startPos + new Vector3(0, 0, 0.5f); // Ajusta este vector según sea necesario
+
+        // Movimiento hacia adelante (apuñalamiento)
+        float elapsedTime = 0f;
+        while (elapsedTime < 1f) // Ajusta el tiempo para un movimiento más corto
+        {
+            punchArm.localPosition = Vector3.Lerp(startPos, endPos, (elapsedTime / 0.2f));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Movimiento de regreso
+        elapsedTime = 0f;
+        while (elapsedTime < 0.5f) // Ajusta el tiempo para un movimiento más corto
+        {
+            punchArm.localPosition = Vector3.Lerp(endPos, startPos, (elapsedTime / 0.2f));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        punchArm.localPosition = punchArm.localPosition; // Asegurar que el brazo vuelve a la posición inicial
+        isPunching = false;
     }
 }
