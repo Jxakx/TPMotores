@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
-public class Golem : MonoBehaviour
+public class Golem : Entity
 {
     public int routine;
     public float chronometer;
@@ -11,7 +12,12 @@ public class Golem : MonoBehaviour
     public float grade;
     public float speed;
 
-    public int distance;
+    private float counter;
+    public float timer;
+
+    public Transform pointRock;
+    [SerializeField] public GameObject rock;
+    [SerializeField] Transform puntoDeDisparo;
 
     public GameObject targetPlayer;
 
@@ -27,11 +33,11 @@ public class Golem : MonoBehaviour
 
     public void walk()
     {
-        if(Vector3.Distance(transform.position, targetPlayer.transform.position) > distance)
+        if(Vector3.Distance(transform.position, targetPlayer.transform.position) > visionRange)
         {
             chronometer += 1 * Time.deltaTime;
 
-            if (chronometer > 4)
+            if (chronometer >=  3)
             {
                 routine = Random.Range(0, 2);
                 chronometer = 0;
@@ -41,26 +47,52 @@ public class Golem : MonoBehaviour
             {
                 case 1:
                     grade = Random.Range(0, 360);
-                    angle = Quaternion.Euler(0f, grade, 0f);
-                    transform.Translate(Vector3.forward * speed * Time.deltaTime);
+                    angle = Quaternion.Euler(0, grade, 0);
                     routine++;
                     break;
 
                 case 2:
                     transform.rotation = Quaternion.RotateTowards(transform.rotation, angle, 0.5f);
                     transform.Translate(Vector3.forward * speed * 1 * Time.deltaTime);
+
+                    
                     break;
             }
         }
         else
         {
-            var lookPos = targetPlayer.transform.position - transform.position;
-            lookPos.y = 0;
-            var rotation = Quaternion.LookRotation(lookPos);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 2);
+            counter += Time.deltaTime;
 
-            transform.Translate(Vector3.forward * speed * 2 * Time.deltaTime);
+            LookPlayer();
 
+            transform.Translate(Vector3.forward * speed * 2  * Time.deltaTime);
+
+            Vector3 directionToPlayer = (Player.position - transform.position).normalized;
+            directionToPlayer.y = 0;
+
+            Quaternion desiredRotation = Quaternion.LookRotation(directionToPlayer);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRotation, speed * Time.deltaTime);
+
+            if (Physics.Raycast(puntoDeDisparo.position, puntoDeDisparo.forward, out RaycastHit hit, actionRange, detectableLayers))
+            {
+
+                if (hit.transform.CompareTag("Player"))
+                {
+                    attackRock();                    
+                }
+
+            }
+
+        }
+
+    }
+
+    public void attackRock()
+    {
+        if(counter >= timer)
+        {
+            counter = 0;
+            Instantiate(rock, pointRock.position, pointRock.rotation);
         }
 
     }
