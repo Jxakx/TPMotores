@@ -98,6 +98,7 @@ public class Golem : Entity
                 {
                     if(distanceToPlayer <= distanceJumpAttack && distanceToPlayer >= distanceRockAttack && distanceToPlayer >= distancePunchAttack)
                     {
+                        int timeJump = Random.Range
 
                         if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
                         {
