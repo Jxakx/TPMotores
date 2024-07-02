@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Snake : MonoBehaviour
+public class Snake : Entity
 {
     
     [SerializeField] GameObject VenomBallPrefab;
-    [SerializeField] int turningSpeed;
+    [SerializeField] int speedRotation;
     [SerializeField] int UpDownSpeed;
     [SerializeField] Transform shootingPoint;
 
@@ -45,7 +45,7 @@ public class Snake : MonoBehaviour
 
     private void RotateSnake()
     {
-        transform.Rotate(0, turningSpeed * Time.deltaTime, 0);
+        transform.Rotate(0, speedRotation * Time.deltaTime, 0);
     }
 
     public void SpitPoison()
