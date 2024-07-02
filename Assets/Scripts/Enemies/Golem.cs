@@ -21,6 +21,11 @@ public class Golem : Entity
     public float distanceRockAttack;
     public float distancePunchAttack;
 
+    public float jumpForce = 5.0f; // Fuerza con la que el cubo salta hacia arriba
+    public float fallSpeed = 10.0f; // Velocidad a la que el cubo vuelve al suelo
+    private Vector3 originalPosition; // Posición original del cubo
+    private bool isJumping = false; // Flag para controlar si el cubo está saltando
+
     public Transform punchArm;
     private bool isPunching;
     private Vector3 initialPunchArmPosition;
@@ -33,6 +38,8 @@ public class Golem : Entity
 
     void Start()
     {
+        originalPosition = transform.position;
+
         targetPlayer = GameObject.Find("PlayerPrueba");
     }
 
@@ -89,7 +96,16 @@ public class Golem : Entity
 
                 if (hit.transform.CompareTag("Player"))
                 {
-                    if(distanceToPlayer <= distanceRockAttack && distanceToPlayer >= distancePunchAttack)
+                    if(distanceToPlayer <= distanceJumpAttack && distanceToPlayer >= distanceRockAttack && distanceToPlayer >= distancePunchAttack)
+                    {
+
+                        if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
+                        {
+                            StartCoroutine(JumpAndFall());
+                        }
+
+                    }
+                    else if(distanceToPlayer <= distanceRockAttack && distanceToPlayer >= distancePunchAttack)
                     {
                         attackRock();
                         print("Tiro Roca");
@@ -150,5 +166,29 @@ public class Golem : Entity
 
         punchArm.localPosition = punchArm.localPosition; // Asegurar que el brazo vuelve a la posición inicial
         isPunching = false;
+    }
+
+
+    IEnumerator JumpAndFall()
+    {
+        isJumping = true;
+
+        // Salto rápido hacia arriba
+        Vector3 jumpTarget = transform.position + Vector3.up * jumpForce;
+        while (transform.position.y < jumpTarget.y)
+        {
+            transform.Translate(Vector3.up * jumpForce * Time.deltaTime, Space.World);
+            yield return null;
+        }
+
+        // Caída suave de vuelta al suelo
+        while (transform.position.y > originalPosition.y)
+        {
+            transform.Translate(Vector3.down * fallSpeed * Time.deltaTime, Space.World);
+            yield return null;
+        }
+
+        transform.position = originalPosition;
+        isJumping = false;
     }
 }
