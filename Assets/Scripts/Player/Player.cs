@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float _jumpForce = 10f;
     private Rigidbody _rB;
     private MoveController _moveController;
+    [SerializeField] public bool isGrounded;
 
     private void Awake()
     {
@@ -35,7 +36,7 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
-        _moveController.Jump();
+        _moveController.Jump(isGrounded);
     }
 
     public void ReciveLife(int value)
@@ -54,6 +55,21 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Suelo"))
+        {
+            isGrounded = true;
+        }
+    }
+
+    public void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Suelo"))
+        {
+            isGrounded = false;
+        }
+    }
     private void Dead()
     {
         // Lógica para la muerte del personaje
