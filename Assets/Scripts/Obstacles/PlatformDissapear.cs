@@ -57,7 +57,7 @@ public class PlatformDissaper : MonoBehaviour
     }
 
 
-    void Blink()
+    void Blink() 
     {
         _timeBetweenBlinkCount += Time.deltaTime;
 
