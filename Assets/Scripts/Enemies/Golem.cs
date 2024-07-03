@@ -24,10 +24,13 @@ public class Golem : Entity
     public float jumpForce = 5.0f; // Fuerza con la que el cubo salta hacia arriba
     public float fallSpeed = 10.0f; // Velocidad a la que el cubo vuelve al suelo
 
+    private Vector3 originalPosition; // Posición original del cubo
+    private bool isJumping = false; // Flag para controlar si el cubo está saltando
+
 
     public Transform punchArm;
     private bool isPunching;
-    private Vector3 initialPunchArmPosition;
+    
 
     public Transform pointRock;
     [SerializeField] public GameObject rock;
@@ -35,9 +38,12 @@ public class Golem : Entity
 
     public GameObject targetPlayer;
 
+    public PruebaSaltoCubo stompGolem;
+
     void Start()
     {
-        
+        originalPosition = transform.position;
+
         targetPlayer = GameObject.Find("PlayerPrueba");
     }
 
@@ -45,6 +51,8 @@ public class Golem : Entity
     {
         distanceToPlayer = Vector3.Distance(transform.position, targetPlayer.transform.position);
         walk();
+
+       
     }
 
     public void walk()
@@ -94,12 +102,21 @@ public class Golem : Entity
 
                 if (hit.transform.CompareTag("Player"))
                 {
-                    if(distanceToPlayer <= distanceJumpAttack && distanceToPlayer >= distanceRockAttack && distanceToPlayer >= distancePunchAttack)
-                    {
-                        
+                    int timeToJump = 10;
+                    print(timeToJump);
+                    counter += Time.deltaTime;
 
-                       
+                    if (counter >= timeToJump && distanceToPlayer <= distanceJumpAttack && distanceToPlayer >= distanceRockAttack && distanceToPlayer >= distancePunchAttack)
+                    {                       
 
+                       if (!isJumping)
+                       {
+                            StartCoroutine(JumpAndFall());
+                            
+                            counter = 0;
+                        }
+
+                        timeToJump = 0;
                     }
                     else if(distanceToPlayer <= distanceRockAttack && distanceToPlayer >= distancePunchAttack)
                     {
@@ -120,6 +137,38 @@ public class Golem : Entity
 
         }
 
+    }
+
+    public IEnumerator JumpAndFall()
+    {
+        isJumping = true;
+
+        // Salto rápido hacia arriba
+        Vector3 jumpTarget = transform.position + Vector3.up * jumpForce;
+        while (transform.position.y < jumpTarget.y)
+        {
+            transform.Translate(Vector3.up * jumpForce * Time.deltaTime);
+            yield return null;
+        }
+
+        // Caída suave de vuelta al suelo
+        while (transform.position.y > originalPosition.y)
+        {
+            transform.Translate(Vector3.down * fallSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        
+        isJumping = false;
+    }
+
+    void ActivateJump()
+    {
+        // Verificar que stompGolem no sea nulo antes de llamar JumpAndFall()
+        if (stompGolem != null)
+        {
+            StartCoroutine(stompGolem.JumpAndFall());
+        }
     }
 
     public void attackRock()

@@ -23,7 +23,7 @@ public class PruebaSaltoCubo : MonoBehaviour
         }
     }
 
-    IEnumerator JumpAndFall()
+    public IEnumerator JumpAndFall()
     {
         isJumping = true;
 
