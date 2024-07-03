@@ -324,6 +324,8 @@ MonoBehaviour:
   distanceJumpAttack: 0
   distanceRockAttack: 50
   distancePunchAttack: 15
+  jumpForce: 5
+  fallSpeed: 10
   punchArm: {fileID: 1998480397}
   pointRock: {fileID: 1817008910}
   rock: {fileID: 4966320530812044565, guid: 5ce5ac7592060954f890b0f16024875a, type: 3}
@@ -634,6 +636,7 @@ GameObject:
   - component: {fileID: 1215169185}
   - component: {fileID: 1215169184}
   - component: {fileID: 1215169183}
+  - component: {fileID: 1215169189}
   m_Layer: 3
   m_Name: Cubito
   m_TagString: Untagged
@@ -768,6 +771,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1215169189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1215169182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 157a1d2e7b6298240aae08bcd6b30310, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpForce: 5
+  fallSpeed: 10
 --- !u!1 &1558026296
 GameObject:
   m_ObjectHideFlags: 0
@@ -1138,6 +1155,7 @@ MonoBehaviour:
   life: 10
   _speed: 60
   _jumpForce: 20
+  isGrounded: 0
 --- !u!1 &1998480396
 GameObject:
   m_ObjectHideFlags: 0
