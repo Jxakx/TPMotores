@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//TP2 Joaquin Lopez
 public class Snake : Entity
 {
     [SerializeField] GameObject VenomBallPrefab;
@@ -19,7 +20,7 @@ public class Snake : Entity
     protected override void Update()
     {
         _counter += Time.deltaTime;
-        base.Update(); // Llama al Update de la clase base (Entity)
+        base.Update(); // Llama al Update de entity
         bool playerInRange = Vector3.Distance(transform.position, Player.position) < visionRange;
         if (!playerInRange)
         {
@@ -29,8 +30,8 @@ public class Snake : Entity
 
     public override void LookPlayer()
     {
-        base.LookPlayer(); // Llama al LookPlayer de la clase base (Entity)
-        SpitPoison(); // Dispara veneno si el jugador está en el rango de visión
+        base.LookPlayer(); // Llama al LookPlayer de entity
+        SpitPoison(); 
     }
 
     private void RotateSnake()
