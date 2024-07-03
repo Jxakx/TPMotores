@@ -40,14 +40,14 @@ public class Golem : Entity
 
     public PruebaSaltoCubo stompGolem;
 
-    void Start()
+    protected override void Start()
     {
         originalPosition = transform.position;
 
         targetPlayer = GameObject.Find("PlayerPrueba");
     }
 
-    void Update()
+    protected override void Update()
     {
         distanceToPlayer = Vector3.Distance(transform.position, targetPlayer.transform.position);
         walk();
