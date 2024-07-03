@@ -306,8 +306,8 @@ MonoBehaviour:
   life: 10
   damageAttack: 0
   score: 0
-  visionRange: 60
-  actionRange: 60
+  visionRange: 100
+  actionRange: 100
   rotationSpeed: 200
   directionTarget: {x: 0, y: 0, z: 0}
   Player: {fileID: 1939918133}
@@ -318,19 +318,20 @@ MonoBehaviour:
   chronometer: 0
   angle: {x: 0, y: 0, z: 0, w: 0}
   grade: 0
-  speed: 2
+  speed: 0
   timer: 4
   distanceToPlayer: 0
-  distanceJumpAttack: 0
+  distanceJumpAttack: 80
   distanceRockAttack: 50
   distancePunchAttack: 15
-  jumpForce: 5
-  fallSpeed: 10
+  jumpForce: 20
+  fallSpeed: 90
   punchArm: {fileID: 1998480397}
   pointRock: {fileID: 1817008910}
   rock: {fileID: 4966320530812044565, guid: 5ce5ac7592060954f890b0f16024875a, type: 3}
   puntoDeDisparo: {fileID: 171728395}
   targetPlayer: {fileID: 1939918132}
+  stompGolem: {fileID: 1733387312}
 --- !u!1 &592487926
 GameObject:
   m_ObjectHideFlags: 0
@@ -635,7 +636,6 @@ GameObject:
   - component: {fileID: 1215169186}
   - component: {fileID: 1215169185}
   - component: {fileID: 1215169184}
-  - component: {fileID: 1215169183}
   - component: {fileID: 1215169189}
   m_Layer: 3
   m_Name: Cubito
@@ -644,20 +644,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1215169183
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1215169182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 157a1d2e7b6298240aae08bcd6b30310, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jumpForce: 25
-  fallSpeed: 90
 --- !u!54 &1215169184
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -783,8 +769,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 157a1d2e7b6298240aae08bcd6b30310, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 5
-  fallSpeed: 10
+  jumpForce: 20
+  fallSpeed: 90
 --- !u!1 &1558026296
 GameObject:
   m_ObjectHideFlags: 0
@@ -811,6 +797,52 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 7.444265, y: 4.7, z: -6.137563}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1733387311
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1733387313}
+  - component: {fileID: 1733387312}
+  m_Layer: 0
+  m_Name: Jump
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1733387312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733387311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 157a1d2e7b6298240aae08bcd6b30310, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpForce: 20
+  fallSpeed: 100
+--- !u!4 &1733387313
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733387311}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -29.377396, y: 22.460007, z: 87.134476}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1412,3 +1444,4 @@ SceneRoots:
   - {fileID: 4156692792842279663}
   - {fileID: 1558026297}
   - {fileID: 171728395}
+  - {fileID: 1733387313}
