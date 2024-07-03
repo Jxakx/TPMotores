@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748171, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -552,7 +552,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.23, z: -4.17}
-  m_LocalScale: {x: 8.403071, y: 0.08750571, z: 8.403071}
+  m_LocalScale: {x: 98.71035, y: 0.08750571, z: 126.96677}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -591,9 +591,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life: 5
-  _speed: 3
+  _speed: 2
   _jumpForce: 5
   isGrounded: 0
+  speedAssaultGoat: 2
 --- !u!65 &1399901245
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -674,7 +675,7 @@ Transform:
   m_GameObject: {fileID: 1399901243}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0068072, y: 0.57, z: -6.29}
+  m_LocalPosition: {x: 0.0068072, y: 0.57, z: -61.5}
   m_LocalScale: {x: 0.38351017, y: 0.5289756, z: 0.38351017}
   m_ConstrainProportionsScale: 0
   m_Children:
