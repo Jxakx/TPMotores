@@ -994,19 +994,15 @@ MonoBehaviour:
   score: 5
   visionRange: 3
   actionRange: 2
-  rotationSpeed: 120
+  rotationSpeed: 50
   directionTarget: {x: 0, y: 0, z: 0}
   Player: {fileID: 1399901248}
   detectableLayers:
     serializedVersion: 2
     m_Bits: 8
   VenomBallPrefab: {fileID: 3617483383823304044, guid: fad15f04c4927e04eb14547baaed356c, type: 3}
-  speedRotation: 5
-  UpDownSpeed: 2
   shootingPoint: {fileID: 1050235767}
   ShootTimer: 1.2
-  positions: []
-  index: 0
 --- !u!1 &1399901243
 GameObject:
   m_ObjectHideFlags: 0

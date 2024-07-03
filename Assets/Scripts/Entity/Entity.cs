@@ -18,12 +18,12 @@ public class Entity : MonoBehaviour
 
     public LayerMask detectableLayers;
 
-    void Start()
+    protected virtual void Start()
     {
         
     }
 
-    void Update()
+    protected virtual void Update()
     {
         bool playerInRange = Vector3.Distance(transform.position, Player.position) < visionRange; //Distancia entre el enemigo y el jugador. 
         
@@ -58,7 +58,7 @@ public class Entity : MonoBehaviour
                 
     }
 
-    public void LookPlayer()
+    public virtual void LookPlayer()
     {
         Vector3 directionToPlayer = (Player.position - transform.position).normalized; //Calcula la dirección. 
         directionToPlayer.y = 0;
@@ -89,10 +89,10 @@ public class Entity : MonoBehaviour
         //life -= (int del daño del pj)
 
         
-        if (Input.GetKeyDown(KeyCode.S))
+        /*if (Input.GetKeyDown(KeyCode.S))
         {            
             life -= 10; //en vez del 10, tiene que ir el int del daño del player            
-        }
+        }*/
 
         if (life <= 0)
         {
