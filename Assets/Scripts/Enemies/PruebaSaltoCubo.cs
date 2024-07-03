@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StompEffect : MonoBehaviour
+public class PruebaSaltoCubo : MonoBehaviour
 {
     public float jumpForce = 5.0f; // Fuerza con la que el cubo salta hacia arriba
     public float fallSpeed = 10.0f; // Velocidad a la que el cubo vuelve al suelo
