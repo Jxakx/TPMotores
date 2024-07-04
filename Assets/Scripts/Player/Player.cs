@@ -18,8 +18,12 @@ public class Player : MonoBehaviour
     private float chargingSpeed = 10.0f; // Velocidad máxima que se puede cargar
     private float chargeTime = 2.0f; // Tiempo máximo de carga en segundos
     private float currentChargeTime = 0.0f; // Tiempo actual de carga
-    private float chargeVelocity = 0.0f; // Velocidad actual de la carga
     private float shootForceMultiplier = 50.0f; // Multiplicador de la fuerza de disparo
+
+    public GameObject shootBall;
+    [SerializeField] Transform shootPoint;
+
+    public ShootPlayer shootPlayer; //Variable de referencia del script de la bala. 
 
 
     private void Awake()
@@ -40,6 +44,13 @@ public class Player : MonoBehaviour
         }
         Jump();
         assaultGoat();
+        shootRock();
+
+        // Actualizar el cooldown de disparo
+        if (currentShootCooldown > 0)
+        {
+            currentShootCooldown -= Time.deltaTime;
+        }
     }
 
     private void Walk()
@@ -128,4 +139,54 @@ public class Player : MonoBehaviour
 
 
     }
+
+
+    private bool isShootingCharging = false;
+
+
+    [SerializeField] private float shootCooldown = 0.5f; // Tiempo mínimo entre cada disparo
+    private float currentShootCooldown = 0.0f; // Tiempo restante antes del próximo disparo
+
+    public void shootRock()
+    {
+        if (Input.GetMouseButtonDown(0) && currentShootCooldown <= 0)
+        {
+            // Iniciar la carga del disparo
+            isShootingCharging = true;
+            currentChargeTime = 0.0f;
+        }
+
+        if (Input.GetMouseButton(0) && isShootingCharging)
+        {
+            // Continuar cargando el disparo
+            currentChargeTime += Time.deltaTime;
+            if (currentChargeTime > chargeTime)
+            {
+                currentChargeTime = chargeTime; // Limitar el tiempo de carga
+            }
+
+            shootPlayer.damage = shootPlayer.damage * 2; //Para que cuando la bala salga re con toda la furia, haga el doble del daño
+
+
+        }
+
+        if (Input.GetMouseButtonUp(0) && isShootingCharging)
+        {
+            // Calcular la fuerza del disparo
+            float shootForce = (currentChargeTime / chargeTime) * shootForceMultiplier;
+
+            // Instanciar la bala
+            GameObject bullet = Instantiate(shootBall, shootPoint.position, shootPoint.rotation);
+            Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
+            bulletRb.velocity = shootPoint.forward * shootForce;
+
+            // Reiniciar variables de carga
+            isShootingCharging = false;
+            currentChargeTime = 0.0f;
+
+            // Aplicar el cooldown de disparo
+            currentShootCooldown = shootCooldown;
+        }
+    }
+
 }
