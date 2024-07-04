@@ -5,7 +5,6 @@ using UnityEngine;
 //TP2 Joaquin Lopez
 public class RotaryObstacle : MonoBehaviour
 {
-    [SerializeField] private int hp = 1;
     [SerializeField] int speed;
 
     private void FixedUpdate()
