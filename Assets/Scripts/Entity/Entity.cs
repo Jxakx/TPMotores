@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Entity : MonoBehaviour
+public class Entity : MonoBehaviour, IDamageable
 {
     public int life;
     public int damageAttack;
@@ -81,7 +81,7 @@ public class Entity : MonoBehaviour
 
     }
 
-    public void takeDamage(int damage)
+    public void TakeDamage(int damage)
     {
 
         life -= damage;

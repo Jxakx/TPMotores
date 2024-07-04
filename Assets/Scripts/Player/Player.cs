@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //TP2 Joaquin Lopez
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamageable
 {
     [SerializeField] private float life;
     [SerializeField] private float _speed;
@@ -70,7 +70,7 @@ public class Player : MonoBehaviour
         if (life > 10) life = 10;
     }
 
-    public void ReciveDamage(int value)
+    public void TakeDamage(int value)
     {
         life -= value;
         if (life <= 0)

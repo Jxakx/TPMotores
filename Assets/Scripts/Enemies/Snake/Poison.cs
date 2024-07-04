@@ -7,6 +7,7 @@ public class Poison : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float timeLife;
     [SerializeField] private int damage;
+    
 
     void Start()
     {
@@ -19,12 +20,11 @@ public class Poison : MonoBehaviour
         transform.position += transform.forward * speed * Time.deltaTime;
     }
 
-    private void OnTriggerEnter(Collider collision)
+    private void OnTriggerEnter(Collider other)
     {
-        Player player = collision.gameObject.GetComponent<Player>();
-        if (player != null)
+        if (other.TryGetComponent(out IDamageable damageable))
         {
-            player.ReciveDamage(damage);
+            damageable.TakeDamage(damage);
             Destroy(gameObject);
         }
     }

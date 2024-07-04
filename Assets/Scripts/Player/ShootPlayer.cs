@@ -18,16 +18,13 @@ public class ShootPlayer : MonoBehaviour
         transform.position += transform.forward * speed * Time.deltaTime;
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {        
-        Entity entity = collision.gameObject.GetComponent<Entity>();
-
-        if(entity != null)
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent(out IDamageable damageable))
         {
-            entity.takeDamage(damage);
+            damageable.TakeDamage(damage);
             Destroy(gameObject);
         }
-
     }
 
 }

@@ -10,7 +10,7 @@ public class Spike : MonoBehaviour
         Player player = collision.gameObject.GetComponent<Player>();
         if (player != null)
         {
-            player.ReciveDamage(damage);
+            player.TakeDamage(damage);
         }
     }
 }
