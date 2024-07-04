@@ -11483,9 +11483,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Golem
       objectReference: {fileID: 0}
+    - target: {fileID: 3840957212109717661, guid: ec163a8b60a049a4c9241f16b68a533c, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 4324100173605220120, guid: ec163a8b60a049a4c9241f16b68a533c, type: 3}
       propertyPath: speed
-      value: 5
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 4324100173605220120, guid: ec163a8b60a049a4c9241f16b68a533c, type: 3}
       propertyPath: Player
@@ -11495,6 +11499,14 @@ PrefabInstance:
       propertyPath: stompGolem
       value: 
       objectReference: {fileID: 432651578}
+    - target: {fileID: 4324100173605220120, guid: ec163a8b60a049a4c9241f16b68a533c, type: 3}
+      propertyPath: stompCircle
+      value: 
+      objectReference: {fileID: 5566606866735655908, guid: 4a7e2af67ab96b448bb5832ea5eb5043, type: 3}
+    - target: {fileID: 4324100173605220120, guid: ec163a8b60a049a4c9241f16b68a533c, type: 3}
+      propertyPath: damageAttack
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4324100173605220120, guid: ec163a8b60a049a4c9241f16b68a533c, type: 3}
       propertyPath: targetPlayer
       value: 
