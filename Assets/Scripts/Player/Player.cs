@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,6 +26,9 @@ public class Player : MonoBehaviour, IDamageable
 
     public ShootPlayer shootPlayer; //Variable de referencia del script de la bala. 
 
+    public event EventHandler OnJump; //Evento de la plataforma trampa. 
+
+
 
     private void Awake()
     {
@@ -42,7 +46,12 @@ public class Player : MonoBehaviour, IDamageable
         {
             Walk();
         }
-        Jump();
+
+        if(Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            OnJump?.Invoke(this, EventArgs.Empty);
+            Jump();
+        }
         assaultGoat();
         shootRock();
 
@@ -165,7 +174,6 @@ public class Player : MonoBehaviour, IDamageable
                 currentChargeTime = chargeTime; // Limitar el tiempo de carga
             }
 
-            shootPlayer.damage = shootPlayer.damage * 2; //Para que cuando la bala salga re con toda la furia, haga el doble del daño
 
 
         }
@@ -180,6 +188,12 @@ public class Player : MonoBehaviour, IDamageable
             Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
             bulletRb.velocity = shootPoint.forward * shootForce;
 
+            ShootPlayer bulletScript = bullet.GetComponent<ShootPlayer>();
+            if (currentChargeTime >= chargeTime)
+            {
+                bulletScript.damage *= 3; // Doble daño si está completamente cargado
+            }
+
             // Reiniciar variables de carga
             isShootingCharging = false;
             currentChargeTime = 0.0f;
@@ -187,6 +201,11 @@ public class Player : MonoBehaviour, IDamageable
             // Aplicar el cooldown de disparo
             currentShootCooldown = shootCooldown;
         }
+
+        
+
     }
 
+
+   
 }

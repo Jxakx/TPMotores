@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 //TP2 Joaquin Lopez
 public class MoveController
@@ -9,7 +10,6 @@ public class MoveController
     private float _speed;
     private float _jumpForce;
     private Rigidbody _rB;
-    
 
     // Constructor
     public MoveController(Transform transform, float speed, float jumpForce, Rigidbody rB)
