@@ -26,6 +26,7 @@ public class Player : MonoBehaviour, IDamageable
 
     public ShootPlayer shootPlayer; //Variable de referencia del script de la bala. 
 
+    public event EventHandler OnJump; //Evento de la plataforma trampa. 
 
 
 
@@ -173,7 +174,6 @@ public class Player : MonoBehaviour, IDamageable
                 currentChargeTime = chargeTime; // Limitar el tiempo de carga
             }
 
-            shootPlayer.damage = shootPlayer.damage * 2; //Para que cuando la bala salga re con toda la furia, haga el doble del daño
 
 
         }
@@ -188,6 +188,12 @@ public class Player : MonoBehaviour, IDamageable
             Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
             bulletRb.velocity = shootPoint.forward * shootForce;
 
+            ShootPlayer bulletScript = bullet.GetComponent<ShootPlayer>();
+            if (currentChargeTime >= chargeTime)
+            {
+                bulletScript.damage *= 3; // Doble daño si está completamente cargado
+            }
+
             // Reiniciar variables de carga
             isShootingCharging = false;
             currentChargeTime = 0.0f;
@@ -200,13 +206,6 @@ public class Player : MonoBehaviour, IDamageable
 
     }
 
-    public event EventHandler OnJump; //Evento de la plataforma trampa. 
 
-    public void trapPlatform()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            
-        }
-    }
+   
 }
