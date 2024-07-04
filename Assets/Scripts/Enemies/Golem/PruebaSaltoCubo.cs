@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//TP2 Augusto Cayo
 public class PruebaSaltoCubo : MonoBehaviour
 {
     public float jumpForce = 5.0f; // Fuerza con la que el cubo salta hacia arriba

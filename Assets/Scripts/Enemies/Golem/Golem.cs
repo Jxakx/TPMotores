@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
-
+//TP2 Augusto Cayo
 public class Golem : Entity
 {
     public int routine;

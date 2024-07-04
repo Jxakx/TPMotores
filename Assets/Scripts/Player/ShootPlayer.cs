@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//TP2 Augusto Cayo
 public class ShootPlayer : MonoBehaviour
 {
     [SerializeField] private float speed;

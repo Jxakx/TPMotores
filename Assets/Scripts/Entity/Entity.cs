@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Entity : MonoBehaviour, IDamageable
+//TP2 Joaquin Lopez
+public abstract class Entity : MonoBehaviour, IDamageable
 {
     public int life;
     public int damageAttack;
