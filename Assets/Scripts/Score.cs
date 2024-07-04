@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+//TP2 Santiago Rodriguez Barba
 public class Score : MonoBehaviour
 {
     
