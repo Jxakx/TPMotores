@@ -93,6 +93,11 @@ public class Player : MonoBehaviour, IDamageable
 
     public void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            TakeDamage(collision.gameObject.GetComponent<Golem>().damageAttack); //Daño de colisión chocando con el golem
+        }
+
         if (collision.gameObject.CompareTag("Suelo"))
         {
             isGrounded = true;

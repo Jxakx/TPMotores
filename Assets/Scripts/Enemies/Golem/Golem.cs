@@ -40,6 +40,9 @@ public class Golem : Entity
 
     public PruebaSaltoCubo stompGolem;
 
+    public GameObject stompCircle;
+
+
     protected override void Start()
     {
         originalPosition = transform.position;
@@ -112,9 +115,9 @@ public class Golem : Entity
                        if (!isJumping)
                        {
                             StartCoroutine(JumpAndFall());
-                            
+                            Invoke("CreateStompCircle", 1.9f);
                             counter = 0;
-                        }
+                       }
 
                         timeToJump = 0;
                     }
@@ -139,6 +142,11 @@ public class Golem : Entity
 
     }
 
+    public void CreateStompCircle()
+    {
+        Instantiate(stompCircle, transform.position, Quaternion.identity);
+    }
+
     public IEnumerator JumpAndFall()
     {
         isJumping = true;
@@ -161,6 +169,8 @@ public class Golem : Entity
         
         isJumping = false;
     }
+
+
 
     void ActivateJump()
     {

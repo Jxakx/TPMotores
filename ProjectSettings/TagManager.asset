@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Suelo
   - Food
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -15,7 +16,7 @@ TagManager:
   - UI
   - VenomBall
   - Snake
-  - 
+  - Enemy
   - 
   - 
   - 
