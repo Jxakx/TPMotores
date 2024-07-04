@@ -3856,6 +3856,8 @@ MonoBehaviour:
   speedAssaultGoat: 0
   shootBall: {fileID: 5539056335904328243, guid: d6f9978eb08ed864b9263113d3daaf08, type: 3}
   shootPoint: {fileID: 711334907}
+  shootPlayer: {fileID: 0}
+  shootCooldown: 0.2
 --- !u!65 &1399901245
 BoxCollider:
   m_ObjectHideFlags: 0
