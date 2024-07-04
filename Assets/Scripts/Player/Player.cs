@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,6 +27,8 @@ public class Player : MonoBehaviour, IDamageable
     public ShootPlayer shootPlayer; //Variable de referencia del script de la bala. 
 
 
+
+
     private void Awake()
     {
         _rB = GetComponent<Rigidbody>();
@@ -42,7 +45,12 @@ public class Player : MonoBehaviour, IDamageable
         {
             Walk();
         }
-        Jump();
+
+        if(Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            OnJump?.Invoke(this, EventArgs.Empty);
+            Jump();
+        }
         assaultGoat();
         shootRock();
 
@@ -187,6 +195,18 @@ public class Player : MonoBehaviour, IDamageable
             // Aplicar el cooldown de disparo
             currentShootCooldown = shootCooldown;
         }
+
+        
+
     }
 
+    public event EventHandler OnJump; //Evento de la plataforma trampa. 
+
+    public void trapPlatform()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            
+        }
+    }
 }
