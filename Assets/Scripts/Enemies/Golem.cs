@@ -44,7 +44,7 @@ public class Golem : Entity
     {
         originalPosition = transform.position;
 
-        targetPlayer = GameObject.Find("PlayerPrueba");
+        targetPlayer = GameObject.Find("Player");
     }
 
     protected override void Update()

@@ -25,8 +25,9 @@ public class ThrowRock : MonoBehaviour
         Player player = collision.gameObject.GetComponent<Player>();
         if (player != null)
         {
+            player.ReciveDamage(damage);
             Destroy(this.gameObject);
-            print("me destrui");
+
         }
 
     }
