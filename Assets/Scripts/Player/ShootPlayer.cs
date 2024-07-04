@@ -20,9 +20,13 @@ public class ShootPlayer : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {        
+        Entity entity = collision.gameObject.GetComponent<Entity>();
 
-        Destroy(gameObject);
-        print("Me destruí");
+        if(entity != null)
+        {
+            entity.takeDamage(damage);
+            Destroy(gameObject);
+        }
 
     }
 
