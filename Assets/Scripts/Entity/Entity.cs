@@ -54,7 +54,6 @@ public class Entity : MonoBehaviour
             print("Jugador fuera del rango");
         }
 
-        takeDamage();
                 
     }
 
@@ -82,24 +81,15 @@ public class Entity : MonoBehaviour
 
     }
 
-    public void takeDamage()
+    public void takeDamage(int damage)
     {
-        //Tener el int del daño que hará el PJ para colocarlo aquí.
 
-        //life -= (int del daño del pj)
-
-        
-        /*if (Input.GetKeyDown(KeyCode.S))
-        {            
-            life -= 10; //en vez del 10, tiene que ir el int del daño del player            
-        }*/
+        life -= damage;
 
         if (life <= 0)
         {
             Death();
         }
-       
-
     }
 
     public void Death()
@@ -107,6 +97,4 @@ public class Entity : MonoBehaviour
         Destroy(gameObject);
     }
 
-    
-    
 }

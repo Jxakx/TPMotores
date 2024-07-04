@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1333845246539830876}
   - component: {fileID: 7426776956193523412}
   - component: {fileID: 3067747704326289269}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1316188041154524494}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Mouth
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -149,7 +149,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5079202778357502419}
   - component: {fileID: 5950739615475339681}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rotador
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -208,7 +208,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8611132203356923194}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Snake
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: 8053498850611703192}
   - component: {fileID: 4354859807780165411}
   - component: {fileID: 7058285217341227928}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -350,7 +350,7 @@ GameObject:
   - component: {fileID: 935320798183951638}
   - component: {fileID: 7935497841629529911}
   - component: {fileID: 3583896878385705719}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6089846154112356420}
   - component: {fileID: 1460048137967929061}
   - component: {fileID: 3238236480357857243}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: VenomBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
