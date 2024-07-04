@@ -19,16 +19,13 @@ public class ThrowRock : MonoBehaviour
         transform.position += transform.forward * speed * Time.deltaTime;
     }
 
-    private void OnTriggernEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-
-        IDamageable damageable = other.GetComponent<IDamageable>();
-
-        if (damageable != null)
+        if (other.TryGetComponent(out IDamageable damageable))
         {
-            damageable.TakeDamage(1);
+            damageable.TakeDamage(damage);
+            Destroy(gameObject);
         }
-
     }
 
 }
