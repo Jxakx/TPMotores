@@ -6,7 +6,7 @@ public class ShootPlayer : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private float timeLife;
-    [SerializeField] private int damage;
+    [SerializeField] public int damage;
 
     void Start()
     {
