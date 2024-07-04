@@ -12,6 +12,7 @@ public class Player : MonoBehaviour, IDamageable
     private Rigidbody _rB;
     private MoveController _moveController;
     [SerializeField] public bool isGrounded;
+   
 
     public int speedAssaultGoat;
 
@@ -89,12 +90,20 @@ public class Player : MonoBehaviour, IDamageable
         }
     }
 
+
     public void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Suelo"))
         {
             isGrounded = true;
         }
+
+        
+        if (collision.gameObject.CompareTag("Food"))
+        {
+            collision.gameObject.GetComponent<CollectableObject>().Collect();
+        }
+
     }
 
     public void OnCollisionExit(Collision collision)
