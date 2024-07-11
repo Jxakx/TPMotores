@@ -27,7 +27,9 @@ public class Player : MonoBehaviour, IDamageable
 
     public ShootPlayer shootPlayer; //Variable de referencia del script de la bala. 
 
-    public event EventHandler OnJump; //Evento de la plataforma trampa. 
+    public event EventHandler OnJump; //Evento de la plataforma trampa.
+                                      //
+    public GameplayCanvasManager gamePlayCanvas;
 
 
 
@@ -120,9 +122,13 @@ public class Player : MonoBehaviour, IDamageable
     }
     private void Dead()
     {
+        Time.timeScale = 0;
+        gamePlayCanvas.onLose();
+        
         Destroy(GetComponent<Player>(), 1);
     }
 
+    //Augusto Cayo
     public void assaultGoat()
     {
         if (Input.GetKeyDown(KeyCode.Q))
@@ -160,7 +166,6 @@ public class Player : MonoBehaviour, IDamageable
             }
         }
 
-
     }
 
 
@@ -170,6 +175,7 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] private float shootCooldown = 0.5f; // Tiempo mínimo entre cada disparo
     private float currentShootCooldown = 0.0f; // Tiempo restante antes del próximo disparo
 
+    //Augusto Cayo
     public void shootRock()
     {
         if (Input.GetMouseButtonDown(0) && currentShootCooldown <= 0)
@@ -187,8 +193,6 @@ public class Player : MonoBehaviour, IDamageable
             {
                 currentChargeTime = chargeTime; // Limitar el tiempo de carga
             }
-
-
 
         }
 
@@ -216,10 +220,6 @@ public class Player : MonoBehaviour, IDamageable
             currentShootCooldown = shootCooldown;
         }
 
-        
-
     }
 
-
-   
 }

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//TP2 Joaquin Lopez
 public class GameplayCanvasManager : MonoBehaviour
 {
     public GameObject losePanel, winPanel;
