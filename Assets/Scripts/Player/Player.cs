@@ -6,7 +6,7 @@ using UnityEngine;
 //TP2 Joaquin Lopez
 public class Player : MonoBehaviour, IDamageable
 {
-    [SerializeField] private float life;
+    [SerializeField] private int life;
     [SerializeField] private float _speed;
     [SerializeField] private float _jumpForce;
     private Rigidbody _rB;
@@ -48,6 +48,8 @@ public class Player : MonoBehaviour, IDamageable
     void Start()
     {
         _moveController = new MoveController(transform, _speed, _jumpForce, _rB);
+
+        
     }
 
     void Update()
@@ -93,6 +95,7 @@ public class Player : MonoBehaviour, IDamageable
     {
         life -= value;
         _gameManager.LoseHP(value);
+        
         if (life <= 0)
         {
             life = 0;

@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameplayCanvasManager : MonoBehaviour
 {
     public GameObject losePanel, winPanel;
+    
     void Start()
     {
         losePanel.SetActive(false);

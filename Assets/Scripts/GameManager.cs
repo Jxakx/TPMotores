@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public UI ui;
-    private int hp = 10;
+    private int hp = 5;
 
     public void SetHP(int newHP)
     {
