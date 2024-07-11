@@ -13487,6 +13487,10 @@ PrefabInstance:
       propertyPath: targetPlayer
       value: 
       objectReference: {fileID: 1399901243}
+    - target: {fileID: 4324100173605220120, guid: ec163a8b60a049a4c9241f16b68a533c, type: 3}
+      propertyPath: gamePlayCanvas
+      value: 
+      objectReference: {fileID: 1149687772}
     - target: {fileID: 5392356197283278287, guid: ec163a8b60a049a4c9241f16b68a533c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.6

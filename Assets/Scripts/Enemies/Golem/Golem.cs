@@ -41,6 +41,7 @@ public class Golem : Entity
     public PruebaSaltoCubo stompGolem;
 
     public GameObject stompCircle;
+    public GameplayCanvasManager gamePlayCanvas;
 
 
     protected override void Start()
@@ -55,7 +56,14 @@ public class Golem : Entity
         distanceToPlayer = Vector3.Distance(transform.position, targetPlayer.transform.position);
         walk();
 
-       
+        if (life <= 0)
+        {
+            Time.timeScale = 0;
+            gamePlayCanvas.onWin();
+            
+            Destroy(gameObject);
+        }
+
     }
 
     public void walk()
