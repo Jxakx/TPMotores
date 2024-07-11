@@ -9,6 +9,12 @@ public class GameplayCanvasManager : MonoBehaviour
     {
         losePanel.SetActive(false);
         winPanel.SetActive(false);
+
+        Golem golem = FindObjectOfType<Golem>(); // Busca el golem en la escena
+        if (golem != null)
+        {
+            golem.OnGolemDeath += HandleGolemDeath;
+        }
     }
 
 
@@ -24,5 +30,11 @@ public class GameplayCanvasManager : MonoBehaviour
         losePanel.SetActive(false);
         winPanel.SetActive(true);
 
+    }
+
+    private void HandleGolemDeath()
+    {
+        Time.timeScale = 0; // Detener el tiempo cuando el golem muere
+        winPanel.SetActive(true); // Mostrar el panel de victoria
     }
 }

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using System;
+
 
 //TP2 Augusto Cayo
 public class Golem : Entity
@@ -42,6 +44,7 @@ public class Golem : Entity
 
     public GameObject stompCircle;
     public GameplayCanvasManager gamePlayCanvas;
+    public event Action OnGolemDeath;
 
 
     protected override void Start()
@@ -56,12 +59,7 @@ public class Golem : Entity
         distanceToPlayer = Vector3.Distance(transform.position, targetPlayer.transform.position);
         walk();
 
-        if (life <= 0)
-        {
-            Time.timeScale = 0;
-            gamePlayCanvas.onWin();
-           
-        }
+        
 
     }
 
@@ -73,14 +71,14 @@ public class Golem : Entity
 
             if (chronometer >=  3)
             {
-                routine = Random.Range(0, 2);
+                routine = UnityEngine.Random.Range(0, 2);
                 chronometer = 0;
             }
 
             switch (routine)
             {
                 case 1:
-                    grade = Random.Range(0, 360);
+                    grade = UnityEngine.Random.Range(0, 360);
                     angle = Quaternion.Euler(0, grade, 0);
                     routine++;
                     break;
@@ -230,6 +228,13 @@ public class Golem : Entity
         isPunching = false;
     }
 
+    public override void Death()
+    {
+        base.Death(); // Llama al método Death de la clase base (Entity)
 
-    
+        // Emitir el evento de muerte del golem
+        OnGolemDeath?.Invoke();
+    }
+
+
 }

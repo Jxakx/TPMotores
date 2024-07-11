@@ -87,13 +87,13 @@ public abstract class Entity : MonoBehaviour, IDamageable
 
         life -= damage;
 
-        if (life <= 0)
+        if (life <= 1.5f)
         {
             Death();
         }
     }
 
-    public void Death()
+    public virtual void Death()
     {
         Destroy(gameObject);
     }
