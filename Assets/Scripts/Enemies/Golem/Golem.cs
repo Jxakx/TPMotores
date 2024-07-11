@@ -60,8 +60,7 @@ public class Golem : Entity
         {
             Time.timeScale = 0;
             gamePlayCanvas.onWin();
-            
-            Destroy(gameObject);
+           
         }
 
     }
