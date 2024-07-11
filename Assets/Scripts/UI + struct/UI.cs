@@ -5,17 +5,37 @@ using UnityEngine;
 //TP2 Santiago Rodriguez Barba
 public class UI : MonoBehaviour
 {
-    public GameObject[] hp;
+    public GameObject[] hearts;
 
-    
-    public void deactivateHP(int indice)
+    public void UpdateHP(int hp)
     {
-        if (indice <= 0) return;
-        hp[indice].SetActive(false);
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            if (i < hp)
+            {
+                hearts[i].SetActive(true);
+            }
+            else
+            {
+                hearts[i].SetActive(false);
+            }
+            Debug.Log("Heart " + i + " is " + (hearts[i].activeSelf ? "active" : "inactive"));
+        }
     }
 
-    public void activateHP(int indice)
+    public void DeactivateHP(int index)
     {
-        hp[(indice - 1)].SetActive(true);
+        if (index >= 0 && index < hearts.Length)
+        {
+            hearts[index].SetActive(false);
+        }
+    }
+
+    public void ActivateHP(int index)
+    {
+        if (index >= 0 && index < hearts.Length)
+        {
+            hearts[index].SetActive(true);
+        }
     }
 }

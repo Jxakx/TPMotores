@@ -5,23 +5,26 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public UI ui;
-
     private int hp = 10;
-   
 
-    public void loseHP()
+    public void SetHP(int newHP)
     {
-        hp -= 1;
-        ui.deactivateHP(hp);
+        hp = newHP;
+        ui.UpdateHP(hp);
     }
 
-    public void gainHP()
+    public void LoseHP(int damage)
     {
-        hp += 1;
-        ui.activateHP(hp);
+        hp -= damage;
+        if (hp < 0) hp = 0;
+        ui.UpdateHP(hp);
     }
 
+    public void GainHP(int amount)
+    {
+        hp += amount;
+        if (hp > 10) hp = 10; // Suponiendo que 10 es el máximo
+        ui.UpdateHP(hp);
+    }
 
-
-    
 }

@@ -30,12 +30,19 @@ public class Player : MonoBehaviour, IDamageable
     public event EventHandler OnJump; //Evento de la plataforma trampa.
                                       //
     public GameplayCanvasManager gamePlayCanvas;
+    private GameManager _gameManager;
 
 
 
     private void Awake()
     {
         _rB = GetComponent<Rigidbody>();
+        _gameManager = FindAnyObjectByType<GameManager>();
+
+        if (_gameManager == null)
+        {
+            Debug.LogError("GameManager no encontrado");
+        }
     }
 
     void Start()
@@ -85,6 +92,7 @@ public class Player : MonoBehaviour, IDamageable
     public void TakeDamage(int value)
     {
         life -= value;
+        _gameManager.LoseHP(value);
         if (life <= 0)
         {
             life = 0;
