@@ -7,7 +7,6 @@ public abstract class Entity : MonoBehaviour, IDamageable
 {
     public int life;
     public int damageAttack;
-    public int score;
 
     public int visionRange; //Rango en el cual la entidad mirará al jugador
     public int actionRange;
@@ -19,6 +18,7 @@ public abstract class Entity : MonoBehaviour, IDamageable
 
     public LayerMask detectableLayers;
 
+    protected abstract void Attack();
     protected virtual void Start()
     {
         

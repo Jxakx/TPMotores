@@ -31,7 +31,7 @@ public class Snake : Entity
     public override void LookPlayer()
     {
         base.LookPlayer(); // Llama al LookPlayer de entity
-        SpitPoison(); 
+        Attack(); 
     }
 
     private void RotateSnake()
@@ -39,7 +39,7 @@ public class Snake : Entity
         transform.Rotate(0, rotationSpeed * Time.deltaTime, 0);
     }
 
-    public void SpitPoison()
+    protected override  void Attack()//SpitPoison
     {
         if (_counter >= ShootTimer)
         {

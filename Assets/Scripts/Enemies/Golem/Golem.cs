@@ -126,7 +126,7 @@ public class Golem : Entity
                     }
                     else if(distanceToPlayer <= distanceRockAttack && distanceToPlayer >= distancePunchAttack)
                     {
-                        attackRock();
+                        Attack();
                         print("Tiro Roca");
                     }
                     else if (distanceToPlayer <= distancePunchAttack)
@@ -184,7 +184,7 @@ public class Golem : Entity
         }
     }
 
-    public void attackRock()
+    protected override void Attack()//AttackRock
     {
         if(counter >= timer)
         {
