@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748171, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2544,8 +2544,8 @@ Transform:
   m_GameObject: {fileID: 219399602}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.5631833, y: -57.41047, z: 41.856613}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -1.5631833, y: -65.6, z: 41.856613}
+  m_LocalScale: {x: 1.1326, y: 1.1326, z: 1.1326}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4161324622061538989}
@@ -11787,11 +11787,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e8f09b92ee3f9c42856a768769073b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 5
+  life: 100
   _speed: 4
   _jumpForce: 6.5
   isGrounded: 0
   speedAssaultGoat: 0
+  assaultDamage: 5
   shootBall: {fileID: 5539056335904328243, guid: d6f9978eb08ed864b9263113d3daaf08, type: 3}
   shootPoint: {fileID: 711334907}
   shootPlayer: {fileID: 1155363256}
@@ -13493,7 +13494,7 @@ PrefabInstance:
       objectReference: {fileID: 1149687772}
     - target: {fileID: 5392356197283278287, guid: ec163a8b60a049a4c9241f16b68a533c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.6
+      value: 0.587
       objectReference: {fileID: 0}
     - target: {fileID: 5392356197283278287, guid: ec163a8b60a049a4c9241f16b68a533c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -13501,7 +13502,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5392356197283278287, guid: ec163a8b60a049a4c9241f16b68a533c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.98
+      value: 1.114
       objectReference: {fileID: 0}
     - target: {fileID: 5757313950181991631, guid: ec163a8b60a049a4c9241f16b68a533c, type: 3}
       propertyPath: m_LocalPosition.x
