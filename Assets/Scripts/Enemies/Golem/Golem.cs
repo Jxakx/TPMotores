@@ -57,9 +57,7 @@ public class Golem : Entity
     protected override void Update()
     {
         distanceToPlayer = Vector3.Distance(transform.position, targetPlayer.transform.position);
-        walk();
-
-        
+        walk();       
 
     }
 
@@ -230,9 +228,8 @@ public class Golem : Entity
 
     public override void Death()
     {
-        base.Death(); // Llama al método Death de la clase base (Entity)
+        base.Death(); 
 
-        // Emitir el evento de muerte del golem
         OnGolemDeath?.Invoke();
     }
 

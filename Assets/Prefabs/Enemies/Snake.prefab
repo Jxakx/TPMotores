@@ -149,9 +149,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5079202778357502419}
   - component: {fileID: 5950739615475339681}
+  - component: {fileID: 1311405868837332045}
   m_Layer: 7
   m_Name: Rotador
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -199,6 +200,29 @@ MonoBehaviour:
   VenomBallPrefab: {fileID: 3617483383823304044, guid: fad15f04c4927e04eb14547baaed356c, type: 3}
   shootingPoint: {fileID: 1316188041154524494}
   ShootTimer: 1.2
+--- !u!136 &1311405868837332045
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3410927003423632868}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.75625384
+  m_Height: 1.6603465
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.20660058, z: -0.057473734}
 --- !u!1 &4269986241932136506
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,7 +234,7 @@ GameObject:
   - component: {fileID: 8611132203356923194}
   m_Layer: 7
   m_Name: Snake
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

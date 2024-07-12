@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 //TP2 Joaquin Lopez
 public class Player : MonoBehaviour, IDamageable
@@ -15,6 +16,8 @@ public class Player : MonoBehaviour, IDamageable
    
 
     public int speedAssaultGoat;
+    public int assaultDamage; // Daño de la embestida
+    private bool isAssaulting;
 
     private bool isCharging = false;
     private float chargingSpeed = 10.0f; // Velocidad máxima que se puede cargar
@@ -108,7 +111,17 @@ public class Player : MonoBehaviour, IDamageable
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            TakeDamage(collision.gameObject.GetComponent<Golem>().damageAttack); //Daño de colisión chocando con el golem
+            Entity enemy = collision.gameObject.GetComponent<Entity>();
+            if (enemy != null && isAssaulting)
+            {
+                // Hacer daño al enemigo
+                enemy.TakeDamage(assaultDamage);
+                isAssaulting = false; // Terminar la embestida
+            }
+            else
+            {
+                TakeDamage(collision.gameObject.GetComponent<Golem>().damageAttack); //Daño de colisión chocando con el golem
+            }
         }
 
         if (collision.gameObject.CompareTag("Suelo"))
@@ -123,6 +136,8 @@ public class Player : MonoBehaviour, IDamageable
         }
 
     }
+
+    
 
     public void OnCollisionExit(Collision collision)
     {
@@ -154,7 +169,6 @@ public class Player : MonoBehaviour, IDamageable
             if (currentChargeTime < chargeTime)
             {
                 currentChargeTime += Time.deltaTime;
-
             }
             else
             {
@@ -164,7 +178,7 @@ public class Player : MonoBehaviour, IDamageable
         else if (Input.GetKeyUp(KeyCode.Q))
         {
             if (isCharging)
-            {
+            {             
                 // Calcular la fuerza de disparo basada en el tiempo de carga
                 float shootForce = currentChargeTime / chargeTime * chargingSpeed * shootForceMultiplier;
 
@@ -173,6 +187,7 @@ public class Player : MonoBehaviour, IDamageable
 
                 // Reiniciar variables de carga
                 isCharging = false;
+                isAssaulting = true; // Indicar que la embestida está en curso
                 currentChargeTime = 0.0f;
             }
         }
