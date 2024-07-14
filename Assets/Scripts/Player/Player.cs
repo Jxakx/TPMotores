@@ -13,7 +13,8 @@ public class Player : MonoBehaviour, IDamageable
     private Rigidbody _rB;
     private MoveController _moveController;
     [SerializeField] public bool isGrounded;
-   
+    private bool isOnTrapPlatform;
+
 
     public int speedAssaultGoat;
     public int assaultDamage; // Daño de la embestida
@@ -62,7 +63,7 @@ public class Player : MonoBehaviour, IDamageable
             Walk();
         }
 
-        if(Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && (isGrounded || isOnTrapPlatform))
         {
             OnJump?.Invoke(this, EventArgs.Empty);
             Jump();
@@ -85,7 +86,9 @@ public class Player : MonoBehaviour, IDamageable
 
     private void Jump()
     {
-        _moveController.Jump(isGrounded);
+        _moveController.Jump(isGrounded || isOnTrapPlatform);
+        isGrounded = false;
+        isOnTrapPlatform = false;
     }
 
     public void ReciveLife(int value)
@@ -129,7 +132,11 @@ public class Player : MonoBehaviour, IDamageable
             isGrounded = true;
         }
 
-        
+        if (collision.gameObject.CompareTag("TrapPlatform"))
+        {
+            isOnTrapPlatform = true;
+        }
+
         if (collision.gameObject.CompareTag("Food"))
         {
             collision.gameObject.GetComponent<CollectableObject>().Collect();
@@ -144,6 +151,10 @@ public class Player : MonoBehaviour, IDamageable
         if (collision.gameObject.CompareTag("Suelo"))
         {
             isGrounded = false;
+        }
+        if (collision.gameObject.CompareTag("TrapPlatform"))
+        {
+            isOnTrapPlatform = false;
         }
     }
     private void Dead()
