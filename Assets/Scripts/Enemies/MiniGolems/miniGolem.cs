@@ -7,10 +7,7 @@ using static UnityEngine.GraphicsBuffer;
 
 //TP2 Santiago Rodriguez Barba
 public class miniGolem : Entity
-
 {
-
-    public Transform player;
     public float rangoVision;
     public float speed;
     public Transform[] positions;
@@ -18,8 +15,6 @@ public class miniGolem : Entity
     public GameObject explosionEffect;
     public float explosionRadius = 3f;
     public int explosionDamage = 1;
-
-    private bool isChasingPlayer = false;
 
     public Transform punto1;
     public Transform punto2;
@@ -31,7 +26,7 @@ public class miniGolem : Entity
 
     protected override void Update()
     {
-        if (Vector3.Distance(transform.position, player.position) < rangoVision)
+        if (Vector3.Distance(transform.position, Player.position) < rangoVision)
         {
             shaseNow = true;
         }
@@ -40,15 +35,15 @@ public class miniGolem : Entity
         {
             StartCoroutine(ExplodeAfterDelay(3.5f));
 
-            Vector3 playerDirection = (player.position - transform.position).normalized;
+            Vector3 playerDirection = (Player.position - transform.position).normalized;
             playerDirection.y = 0;
 
-            if (Vector3.Distance(transform.position, player.position) > 0.5f)
+            if (Vector3.Distance(transform.position, Player.position) > 0.5f)
             {
                 transform.position += playerDirection * speed * Time.deltaTime;
             }
 
-            Vector3 targetDirection = player.position - transform.position;
+            Vector3 targetDirection = Player.position - transform.position;
             transform.rotation = Quaternion.LookRotation(targetDirection);
         }
         else

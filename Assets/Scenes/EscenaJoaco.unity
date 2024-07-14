@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748171, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1132,6 +1132,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MiniGolem (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6379612494624951889, guid: 016f5f3225a3de747b021f095c665b61, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: eb9afe35cc41cb9409b2f2c1025a2f45, type: 2}
     m_RemovedComponents:
     - {fileID: 2810582774677255957, guid: 016f5f3225a3de747b021f095c665b61, type: 3}
     m_RemovedGameObjects: []
@@ -1199,15 +1203,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 925100e64df772f43974ab27759a06f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1399901248}
+  life: 2
+  damageAttack: 0
+  visionRange: 0
+  actionRange: 0
+  rotationSpeed: 40
+  directionTarget: {x: 0, y: 0, z: 0}
+  Player: {fileID: 1399901248}
+  detectableLayers:
+    serializedVersion: 2
+    m_Bits: 8
   rangoVision: 15
-  speed: 5
+  speed: 6
   positions:
   - {fileID: 831534367}
   - {fileID: 2000157766}
   - {fileID: 1926874658}
   index: 0
-  rotationSpeed: 40
   explosionEffect: {fileID: 0}
   explosionRadius: 3
   explosionDamage: 1
@@ -1215,7 +1227,7 @@ MonoBehaviour:
   punto2: {fileID: 1313799401}
   punto3: {fileID: 114552228}
   punto4: {fileID: 973593613}
-  ball: {fileID: 3867142912966246326, guid: bb7562e2ceedc034caba15ca9f691311, type: 3}
+  ball: {fileID: 2917869936911002801, guid: bb7562e2ceedc034caba15ca9f691311, type: 3}
   shaseNow: 0
 --- !u!1 &81582075
 GameObject:
@@ -5602,15 +5614,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 925100e64df772f43974ab27759a06f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1399901248}
+  life: 2
+  damageAttack: 0
+  visionRange: 0
+  actionRange: 0
+  rotationSpeed: 40
+  directionTarget: {x: 0, y: 0, z: 0}
+  Player: {fileID: 1399901248}
+  detectableLayers:
+    serializedVersion: 2
+    m_Bits: 8
   rangoVision: 15
-  speed: 5
+  speed: 6
   positions:
   - {fileID: 529441565}
   - {fileID: 1763981471}
   - {fileID: 1981130478}
   index: 0
-  rotationSpeed: 40
   explosionEffect: {fileID: 0}
   explosionRadius: 3
   explosionDamage: 1
@@ -5618,7 +5638,7 @@ MonoBehaviour:
   punto2: {fileID: 45602849}
   punto3: {fileID: 168035001}
   punto4: {fileID: 1496665793}
-  ball: {fileID: 3867142912966246326, guid: bb7562e2ceedc034caba15ca9f691311, type: 3}
+  ball: {fileID: 2917869936911002801, guid: bb7562e2ceedc034caba15ca9f691311, type: 3}
   shaseNow: 0
 --- !u!4 &515959550 stripped
 Transform:
@@ -6400,6 +6420,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MiniGolem (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6379612494624951889, guid: 016f5f3225a3de747b021f095c665b61, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5eac5a6ffffff0c4b987719d167c0ab7, type: 2}
     m_RemovedComponents:
     - {fileID: 2810582774677255957, guid: 016f5f3225a3de747b021f095c665b61, type: 3}
     m_RemovedGameObjects: []
@@ -6467,15 +6491,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 925100e64df772f43974ab27759a06f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1399901248}
+  life: 2
+  damageAttack: 0
+  visionRange: 0
+  actionRange: 0
+  rotationSpeed: 40
+  directionTarget: {x: 0, y: 0, z: 0}
+  Player: {fileID: 1399901248}
+  detectableLayers:
+    serializedVersion: 2
+    m_Bits: 8
   rangoVision: 15
-  speed: 5
+  speed: 6
   positions:
   - {fileID: 2049268867}
   - {fileID: 944143172}
   - {fileID: 1838509708}
   index: 0
-  rotationSpeed: 40
   explosionEffect: {fileID: 0}
   explosionRadius: 3
   explosionDamage: 1
@@ -6483,7 +6515,7 @@ MonoBehaviour:
   punto2: {fileID: 350049237}
   punto3: {fileID: 1519518133}
   punto4: {fileID: 1669470353}
-  ball: {fileID: 3867142912966246326, guid: bb7562e2ceedc034caba15ca9f691311, type: 3}
+  ball: {fileID: 2917869936911002801, guid: bb7562e2ceedc034caba15ca9f691311, type: 3}
   shaseNow: 0
 --- !u!1 &669653075
 GameObject:
@@ -7390,7 +7422,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -38.68, y: 19.47, z: 43.5}
-  m_LocalScale: {x: 5.8870325, y: 0.13714652, z: 5.6265993}
+  m_LocalScale: {x: 5.8870325, y: 0.046585225, z: 5.6265993}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 19434728}
@@ -8333,7 +8365,7 @@ Transform:
   m_GameObject: {fileID: 829091397}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12.9954815, y: 21.8, z: 61.9}
+  m_LocalPosition: {x: -12.9954815, y: 21.83, z: 61.9}
   m_LocalScale: {x: 59.61488, y: 0.20361297, z: 11.407242}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10387,8 +10419,8 @@ Transform:
   m_GameObject: {fileID: 1090411690}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -38.68, y: 20.391, z: 113.09}
-  m_LocalScale: {x: 5.8870325, y: 0.13714652, z: 5.6265993}
+  m_LocalPosition: {x: -38.68, y: 20.45, z: 113.09}
+  m_LocalScale: {x: 5.8870325, y: 0.060141493, z: 5.6265993}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 19434728}
@@ -11797,8 +11829,8 @@ Transform:
   m_GameObject: {fileID: 1231683987}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -38.68, y: 19.47, z: 105.52}
-  m_LocalScale: {x: 5.8870325, y: 0.13714652, z: 5.6265993}
+  m_LocalPosition: {x: -38.68, y: 19.46, z: 105.52}
+  m_LocalScale: {x: 5.8870325, y: 0.08771343, z: 5.6265993}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 19434728}
@@ -11902,8 +11934,8 @@ Transform:
   m_GameObject: {fileID: 1239013291}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -38.68, y: 20.566, z: 51.07}
-  m_LocalScale: {x: 5.8870325, y: 0.13714652, z: 5.6265993}
+  m_LocalPosition: {x: -38.68, y: 20.78, z: 51.07}
+  m_LocalScale: {x: 5.8870325, y: 0.08481689, z: 5.6265993}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 19434728}
@@ -12555,7 +12587,7 @@ Transform:
   m_GameObject: {fileID: 1399901243}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.9, y: 8.51, z: -8.3}
+  m_LocalPosition: {x: 3.9, y: 6.67, z: -141.2}
   m_LocalScale: {x: 1.9535849, y: 2.6945798, z: 1.9535849}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -14172,7 +14204,7 @@ Transform:
   m_GameObject: {fileID: 1677418609}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12.9954815, y: 21.8, z: 125.3}
+  m_LocalPosition: {x: -12.9954815, y: 21.87, z: 125.3}
   m_LocalScale: {x: 59.61488, y: 0.20361297, z: 12.01918}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17428,6 +17460,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MiniGolem
       objectReference: {fileID: 0}
+    - target: {fileID: 6379612494624951889, guid: 016f5f3225a3de747b021f095c665b61, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: eb9afe35cc41cb9409b2f2c1025a2f45, type: 2}
     m_RemovedComponents:
     - {fileID: 2810582774677255957, guid: 016f5f3225a3de747b021f095c665b61, type: 3}
     m_RemovedGameObjects: []
