@@ -7,6 +7,13 @@ using static UnityEngine.EventSystems.EventTrigger;
 //TP2 Joaquin Lopez
 public class Player : MonoBehaviour, IDamageable
 {
+    public enum PlayerState
+    {
+        Healthy,
+        Injured,
+        Critical
+    }
+
     [SerializeField] private int life;
     [SerializeField] private float _speed;
     [SerializeField] private float _jumpForce;
@@ -15,28 +22,29 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] public bool isGrounded;
     private bool isOnTrapPlatform;
 
-
     public int speedAssaultGoat;
-    public int assaultDamage; // Daño de la embestida
+    public int assaultDamage;
     private bool isAssaulting;
-
     private bool isCharging = false;
-    private float chargingSpeed = 10.0f; // Velocidad máxima que se puede cargar
-    private float chargeTime = 2.0f; // Tiempo máximo de carga en segundos
-    private float currentChargeTime = 0.0f; // Tiempo actual de carga
-    private float shootForceMultiplier = 50.0f; // Multiplicador de la fuerza de disparo
+    private float chargingSpeed = 10.0f;
+    private float chargeTime = 2.0f;
+    private float currentChargeTime = 0.0f;
+    private float shootForceMultiplier = 50.0f;
 
     public GameObject shootBall;
     [SerializeField] Transform shootPoint;
+    public ShootPlayer shootPlayer;
 
-    public ShootPlayer shootPlayer; //Variable de referencia del script de la bala. 
-
-    public event EventHandler OnJump; //Evento de la plataforma trampa.
-                                      //
+    public event EventHandler OnJump;
     public GameplayCanvasManager gamePlayCanvas;
     private GameManager _gameManager;
 
+    private bool isShootingCharging = false;
+    private float defaultShootCooldown = 0.2f;
+    private float increasedShootCooldown = 0.8f;
+    private float currentShootCooldown = 0.0f;
 
+    private PlayerState playerState;
 
     private void Awake()
     {
@@ -47,13 +55,12 @@ public class Player : MonoBehaviour, IDamageable
         {
             Debug.LogError("GameManager no encontrado");
         }
+        UpdatePlayerState();
     }
 
     void Start()
     {
         _moveController = new MoveController(transform, _speed, _jumpForce, _rB);
-
-        
     }
 
     void Update()
@@ -71,7 +78,6 @@ public class Player : MonoBehaviour, IDamageable
         assaultGoat();
         shootRock();
 
-        // Actualizar el cooldown de disparo
         if (currentShootCooldown > 0)
         {
             currentShootCooldown -= Time.deltaTime;
@@ -95,13 +101,15 @@ public class Player : MonoBehaviour, IDamageable
     {
         life += value;
         if (life > 10) life = 10;
+        UpdatePlayerState();
     }
 
     public void TakeDamage(int value)
     {
         life -= value;
         _gameManager.LoseHP(value);
-        
+        UpdatePlayerState();
+
         if (life <= 0)
         {
             life = 0;
@@ -109,6 +117,21 @@ public class Player : MonoBehaviour, IDamageable
         }
     }
 
+    private void UpdatePlayerState()
+    {
+        if (life > 3)
+        {
+            playerState = PlayerState.Healthy;
+        }
+        else if (life > 2)
+        {
+            playerState = PlayerState.Injured;
+        }
+        else
+        {
+            playerState = PlayerState.Critical;
+        }
+    }
 
     public void OnCollisionEnter(Collision collision)
     {
@@ -117,13 +140,12 @@ public class Player : MonoBehaviour, IDamageable
             Entity enemy = collision.gameObject.GetComponent<Entity>();
             if (enemy != null && isAssaulting)
             {
-                // Hacer daño al enemigo
                 enemy.TakeDamage(assaultDamage);
-                isAssaulting = false; // Terminar la embestida
+                isAssaulting = false;
             }
             else
             {
-                TakeDamage(collision.gameObject.GetComponent<Golem>().damageAttack); //Daño de colisión chocando con el golem
+                TakeDamage(collision.gameObject.GetComponent<Golem>().damageAttack);
             }
         }
 
@@ -141,10 +163,7 @@ public class Player : MonoBehaviour, IDamageable
         {
             collision.gameObject.GetComponent<CollectableObject>().Collect();
         }
-
     }
-
-    
 
     public void OnCollisionExit(Collision collision)
     {
@@ -157,21 +176,22 @@ public class Player : MonoBehaviour, IDamageable
             isOnTrapPlatform = false;
         }
     }
+
     private void Dead()
     {
         Time.timeScale = 0;
         gamePlayCanvas.onLose();
-        
-        Destroy(GetComponent<Player>(), 1);
+        Destroy(gameObject, 1);
     }
 
-    //Augusto Cayo
     public void assaultGoat()
     {
+        if (playerState == PlayerState.Critical || playerState == PlayerState.Injured)
+            return;
+
         if (Input.GetKeyDown(KeyCode.Q))
         {
             isCharging = true;
-            // Detener el movimiento del jugador al cargar la embestida
             _moveController.Move(Vector3.zero);
         }
 
@@ -183,62 +203,44 @@ public class Player : MonoBehaviour, IDamageable
             }
             else
             {
-                currentChargeTime = chargeTime; // No permitir que el tiempo de carga exceda chargeTime
+                currentChargeTime = chargeTime;
             }
         }
         else if (Input.GetKeyUp(KeyCode.Q))
         {
             if (isCharging)
-            {             
-                // Calcular la fuerza de disparo basada en el tiempo de carga
+            {
                 float shootForce = currentChargeTime / chargeTime * chargingSpeed * shootForceMultiplier;
-
-                // Aplicar fuerza hacia adelante al Rigidbody para disparar al jugador
                 _rB.AddForce(transform.forward * shootForce, ForceMode.Impulse);
-
-                // Reiniciar variables de carga
                 isCharging = false;
-                isAssaulting = true; // Indicar que la embestida está en curso
+                isAssaulting = true;
                 currentChargeTime = 0.0f;
             }
         }
-
     }
 
-
-    private bool isShootingCharging = false;
-
-
-    [SerializeField] private float shootCooldown = 0.5f; // Tiempo mínimo entre cada disparo
-    private float currentShootCooldown = 0.0f; // Tiempo restante antes del próximo disparo
-
-    //Augusto Cayo
     public void shootRock()
     {
+        float cooldown = playerState == PlayerState.Critical ? increasedShootCooldown : defaultShootCooldown;
+
         if (Input.GetMouseButtonDown(0) && currentShootCooldown <= 0)
         {
-            // Iniciar la carga del disparo
             isShootingCharging = true;
             currentChargeTime = 0.0f;
         }
 
         if (Input.GetMouseButton(0) && isShootingCharging)
         {
-            // Continuar cargando el disparo
             currentChargeTime += Time.deltaTime;
             if (currentChargeTime > chargeTime)
             {
-                currentChargeTime = chargeTime; // Limitar el tiempo de carga
+                currentChargeTime = chargeTime;
             }
-
         }
 
         if (Input.GetMouseButtonUp(0) && isShootingCharging)
         {
-            // Calcular la fuerza del disparo
             float shootForce = (currentChargeTime / chargeTime) * shootForceMultiplier;
-
-            // Instanciar la bala
             GameObject bullet = Instantiate(shootBall, shootPoint.position, shootPoint.rotation);
             Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
             bulletRb.velocity = shootPoint.forward * shootForce;
@@ -246,17 +248,13 @@ public class Player : MonoBehaviour, IDamageable
             ShootPlayer bulletScript = bullet.GetComponent<ShootPlayer>();
             if (currentChargeTime >= chargeTime)
             {
-                bulletScript.damage *= 3; // Doble daño si está completamente cargado
+                bulletScript.damage *= 3;
             }
 
-            // Reiniciar variables de carga
             isShootingCharging = false;
             currentChargeTime = 0.0f;
-
-            // Aplicar el cooldown de disparo
-            currentShootCooldown = shootCooldown;
+            currentShootCooldown = cooldown;
         }
-
     }
-
 }
+
