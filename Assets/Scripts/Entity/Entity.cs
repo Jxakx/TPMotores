@@ -1,93 +1,56 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-//TP2 Joaquin Lopez
+
+
 public abstract class Entity : MonoBehaviour, IDamageable
 {
     public int life;
     public int damageAttack;
-
-    public int visionRange; //Rango en el cual la entidad mirará al jugador
+    public int visionRange;
     public int actionRange;
-    public float rotationSpeed; //Velocidad de rotación de la entidad
-
-    public Vector3 directionTarget; //Distancia que ve al Player
-    public Transform Player; //Para saber donde está el Player siempre
-    //Para tener el transform de la entidad, basta con colocar transfrom.position.
-
+    public float rotationSpeed;
+    public Vector3 directionTarget;
+    public Transform Player;
     public LayerMask detectableLayers;
 
-    protected abstract void Attack();
+    public AttackDelegate OnAttack; // Delegate para manejar ataques
+
+    public delegate void AttackDelegate();
+
     protected virtual void Start()
     {
-        
+        // Los enemigos específicos asignarán su propio ataque en Start()
     }
 
     protected virtual void Update()
     {
-        bool playerInRange = Vector3.Distance(transform.position, Player.position) < visionRange; //Distancia entre el enemigo y el jugador. 
-        
-        if(playerInRange == true)
+        bool playerInRange = Vector3.Distance(transform.position, Player.position) < visionRange;
+
+        if (playerInRange)
         {
-            print("Jugador dentro del rango");
-            Vector3 directionToPlayer = (Player.position-transform.position).normalized; //Calcula la dirección. 
-            directionToPlayer.y = 0;
+            LookPlayer(); // Mira al jugador
 
-            Debug.DrawRay(transform.position, directionToPlayer * visionRange, Color.red); 
-
-            if(Physics.Raycast(transform.position, directionToPlayer, out RaycastHit hit,visionRange,detectableLayers)) //Rayito real si ve o no al player.
+            // Si el enemigo tiene asignado un ataque, lo ejecuta
+            if (OnAttack != null)
             {
-                if (hit.transform.CompareTag("Player"))
-                {
-                    print("Te veo");
-                    LookPlayer(); 
-                }
-                else
-                {
-                    print("No te veo");
-                }
+                OnAttack.Invoke();
             }
-
         }
-        else
-        {
-            print("Jugador fuera del rango");
-        }
-
-                
     }
 
     public virtual void LookPlayer()
     {
-        Vector3 directionToPlayer = (Player.position - transform.position).normalized; //Calcula la dirección. 
+        Vector3 directionToPlayer = (Player.position - transform.position).normalized;
         directionToPlayer.y = 0;
 
         Quaternion desiredRotation = Quaternion.LookRotation(directionToPlayer);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRotation, rotationSpeed * Time.deltaTime); //Girar al jugador.
-
-        Debug.DrawRay(transform.position, transform.forward * actionRange, Color.blue); //Esta vez, al entrar en el rango de acción, se puede ejecutar tal cosa, ej, disparar.
-
-        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, actionRange, detectableLayers)) //Rayito real si ve o no al player.
-        {
-            if (hit.transform.CompareTag("Player"))
-            {
-                print("Te veo");
-            }
-            else
-            {
-                print("No te veo");
-            }
-        }
-
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRotation, rotationSpeed * Time.deltaTime);
     }
 
     public void TakeDamage(int damage)
     {
-
         life -= damage;
-
-        if (life <= 1.5f)
+        if (life <= 0)
         {
             Death();
         }
@@ -97,5 +60,4 @@ public abstract class Entity : MonoBehaviour, IDamageable
     {
         Destroy(gameObject);
     }
-
 }

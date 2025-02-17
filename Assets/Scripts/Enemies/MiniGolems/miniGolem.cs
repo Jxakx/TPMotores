@@ -1,131 +1,110 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-using static UnityEngine.GraphicsBuffer;
-
-
-//TP2 Santiago Rodriguez Barba
-public class miniGolem : Entity
+public class MiniGolem : Entity
 {
-    public float rangoVision;
-    public float speed;
-    public Transform[] positions;
-    public int index;
     public GameObject explosionEffect;
     public float explosionRadius = 3f;
     public int explosionDamage = 1;
+    public float speed = 3f;
+    public bool isExploding = false;
 
-    public Transform punto1;
-    public Transform punto2;
-    public Transform punto3;
-    public Transform punto4;
-    public GameObject ball;
+    public Transform[] patrolPoints; // Puntos de patrulla
+    private int currentPatrolIndex = 0;
+    private bool isChasing = false; // Indica si está persiguiendo al jugador
 
-    public bool shaseNow;
+    protected override void Start()
+    {
+        Player = GameObject.FindGameObjectWithTag("Player").transform;
+        OnAttack = Explode;
+    }
 
     protected override void Update()
     {
-        if (Vector3.Distance(transform.position, Player.position) < rangoVision)
+        base.Update();
+
+        if (isExploding) return; // Si ya explotó, no hacer nada más
+
+        if (Vector3.Distance(transform.position, Player.position) < visionRange)
         {
-            shaseNow = true;
-        }
-
-        if (shaseNow == true)
-        {
-            StartCoroutine(ExplodeAfterDelay(3.5f));
-
-            Vector3 playerDirection = (Player.position - transform.position).normalized;
-            playerDirection.y = 0;
-
-            if (Vector3.Distance(transform.position, Player.position) > 0.5f)
-            {
-                transform.position += playerDirection * speed * Time.deltaTime;
-            }
-
-            Vector3 targetDirection = Player.position - transform.position;
-            transform.rotation = Quaternion.LookRotation(targetDirection);
+            // 🔹 Si el jugador entra en la visión, lo persigue
+            isChasing = true;
         }
         else
         {
-            Vector3 positionDirection = (positions[index].position - transform.position).normalized;
-            positionDirection.y = 0;
+            // 🔹 Si el jugador sale del rango, vuelve a patrullar
+            isChasing = false;
+        }
 
-            transform.position = Vector3.MoveTowards(transform.position, positions[index].position, speed * Time.deltaTime);
-
-
-            Vector3 targetDirection = positions[index].position - transform.position;
-            Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-
-            if (Vector3.Distance(transform.position, positions[index].position) < 1f)
-            {
-               
-                index++;
-                if (index >= positions.Length)
-                {
-                    index = 0;
-                }
-                
-            }
-            else
-            {
-                Debug.Log(Vector3.Distance(transform.position, positions[index].position));
-            }
+        if (isChasing)
+        {
+            ChasePlayer();
+        }
+        else
+        {
+            Patrol();
         }
     }
 
-    private IEnumerator ExplodeAfterDelay(float delay)
+    private void ChasePlayer()
     {
-        yield return new WaitForSeconds(delay);
-        Attack();
-        yield break;
-    }
-    protected override void Attack()
-    {
-        
-        GameObject bullet1 = Instantiate(ball);
-        bullet1.GetComponent<MoveSphere>().speed = 3;
-        bullet1.transform.position = punto1.position;
-        bullet1.GetComponent<MoveSphere>().direction = punto1.position - transform.position;
+        if (Player == null) return;
 
-        GameObject bullet2 = Instantiate(ball);
-        bullet2.GetComponent<MoveSphere>().speed = 3;
-        bullet2.transform.position = punto2.position;
-        bullet2.GetComponent<MoveSphere>().direction = punto2.position - transform.position;
-
-        GameObject bullet3 = Instantiate(ball);
-        bullet3.GetComponent<MoveSphere>().speed = 3;
-        bullet3.transform.position = punto3.position;
-        bullet3.GetComponent<MoveSphere>().direction = punto3.position - transform.position;
-
-        GameObject bullet4 = Instantiate(ball);
-        bullet4.GetComponent<MoveSphere>().speed = 3;
-        bullet4.transform.position = punto4.position;
-        bullet4.GetComponent<MoveSphere>().direction = punto4.position - transform.position;
-
-        Destroy(gameObject);
+        Vector3 direction = (Player.position - transform.position).normalized;
+        direction.y = 0;
+        transform.position += direction * speed * Time.deltaTime;
+        transform.rotation = Quaternion.LookRotation(direction);
     }
 
+    private void Patrol()
+    {
+        if (patrolPoints.Length == 0) return;
 
-    public void OnDrawGizmosSelected()
+        Transform targetPoint = patrolPoints[currentPatrolIndex];
+        Vector3 direction = (targetPoint.position - transform.position).normalized;
+        transform.position += direction * speed * Time.deltaTime;
+        transform.rotation = Quaternion.LookRotation(direction);
+
+        if (Vector3.Distance(transform.position, targetPoint.position) < 0.5f)
+        {
+            currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length;
+        }
+    }
+
+    private void Explode()
+    {
+        if (!isExploding)
+        {
+            isExploding = true;
+            print("💥 Mini Golem explota y suelta piedritas 💥");
+
+            Instantiate(explosionEffect, transform.position, Quaternion.identity);
+
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, explosionRadius);
+            foreach (Collider hit in hitColliders)
+            {
+                if (hit.CompareTag("Player"))
+                {
+                    hit.GetComponent<Player>().TakeDamage(explosionDamage);
+                }
+            }
+
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            OnAttack.Invoke();
+        }
+    }
+
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, rangoVision);
-        // Dibujar el radio de la explosi�n
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, explosionRadius);
-    }
-
-    public void OnCollisionEnter(Collision collision)
-    {
-        Player player = collision.gameObject.GetComponent<Player>();
-
-        if (player != null)
-        {
-            player.TakeDamage(1);
-            Attack();
-        }
-
+        Gizmos.DrawWireSphere(transform.position, visionRange);
     }
 }
+
+

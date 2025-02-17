@@ -1,22 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-
-//TP2 Santiago Rodriguez Barba 
-public class MoveSphere : MonoBehaviour
+// --- MOVESPHERE (Ataque de proyectil) ---
+public class MoveSphere : Entity
 {
     public int speed = 5;
-    public Vector3 direction = new Vector3(0, 0, 0);
+    public Vector3 direction;
     public int damage = 1;
     private bool onlyOne = true;
 
-    private void Start()
+    protected override void Start()
     {
-        Destroy(gameObject, 3f);
+        base.Start();
+        Player = GameObject.FindGameObjectWithTag("Player").transform; // Busca el Player en la escena
+        OnAttack = MoveForward;
     }
 
-    void Update()
+    protected override void Update()
+    {
+        base.Update();
+    }
+
+    private void MoveForward()
     {
         transform.position += direction * speed * Time.deltaTime;
         transform.Rotate(new Vector3(1, 1, 1) * speed * Time.deltaTime);
@@ -25,13 +29,11 @@ public class MoveSphere : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Player player = other.GetComponent<Player>();
-        if (player != null)
+        if (player != null && onlyOne)
         {
-            if (onlyOne)
-            {
-                player.TakeDamage(damage);
-                onlyOne = false;
-            }
+            player.TakeDamage(damage);
+            onlyOne = false;
         }
     }
 }
+
