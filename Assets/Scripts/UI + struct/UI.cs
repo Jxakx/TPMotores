@@ -1,41 +1,32 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//TP2 Santiago Rodriguez Barba
 public class UI : MonoBehaviour
 {
-    public GameObject[] hearts;
+    public GameObject[] hearts; 
+    public GameObject gameOverScreen; 
 
-    public void UpdateHP(int hp)
+    private void OnEnable()
+    {
+        GameManager.OnHPChanged += UpdateHP; // Se suscribe al evento de vida
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnHPChanged -= UpdateHP; // Se desuscribe cuando se desactiva
+    }
+
+    private void UpdateHP(int hp)
     {
         for (int i = 0; i < hearts.Length; i++)
         {
-            if (i < hp)
-            {
-                hearts[i].SetActive(true);
-            }
-            else
-            {
-                hearts[i].SetActive(false);
-            }
-            Debug.Log("Heart " + i + " is " + (hearts[i].activeSelf ? "active" : "inactive"));
+            hearts[i].SetActive(i < hp);
         }
     }
 
-    public void DeactivateHP(int index)
+    public void ShowGameOverScreen()
     {
-        if (index >= 0 && index < hearts.Length)
-        {
-            hearts[index].SetActive(false);
-        }
-    }
-
-    public void ActivateHP(int index)
-    {
-        if (index >= 0 && index < hearts.Length)
-        {
-            hearts[index].SetActive(true);
-        }
+        gameOverScreen.SetActive(true);
     }
 }

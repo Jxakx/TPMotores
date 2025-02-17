@@ -10,24 +10,30 @@ public class Snake : Entity
     protected override void Start()
     {
         Player = FindObjectOfType<Player>().transform;
-
-        // Asignamos el ataque de la serpiente al delegate
-        OnAttack = SpitVenom;
+        OnAttack = SpitPoison; // Asigna su ataque al Delegate
     }
 
     protected override void Update()
     {
-        _counter += Time.deltaTime;
-        base.Update(); // Llama a Update() de Entity para manejar los ataques automáticamente
-    }
+        base.Update();
 
-    private void SpitVenom()
-    {
-        if (_counter >= ShootTimer)
+        _counter += Time.deltaTime;
+
+        if (Vector3.Distance(transform.position, Player.position) < visionRange)
         {
-            _counter = 0;
-            Instantiate(VenomBallPrefab, shootingPoint.position, shootingPoint.rotation);
-            print("🐍 ¡La serpiente escupe veneno!"); // El emoji xd
+            LookPlayer();
+            if (_counter >= ShootTimer) 
+            {
+                OnAttack?.Invoke();
+                _counter = 0; //Resetear el contador para que vuelva a disparar
+            }
         }
     }
+
+    private void SpitPoison()
+    {
+        Instantiate(VenomBallPrefab, shootingPoint.position, shootingPoint.rotation);
+        Debug.Log("🐍 La serpiente disparó veneno.");
+    }
 }
+

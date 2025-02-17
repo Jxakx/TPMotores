@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -6,24 +6,37 @@ using TMPro;
 //TP2 Santiago Rodriguez Barba
 public class Score : MonoBehaviour
 {
-    
-    [SerializeField]private float points;
-    [SerializeField]private TextMeshProUGUI textMesh;
+    public delegate void ScoreChanged(float newScore);
+    public static event ScoreChanged OnScoreChanged;
+
+    [SerializeField] private float points;
+    [SerializeField] private TextMeshProUGUI textMesh;
 
     private void Start()
     {
-        
         textMesh = GetComponent<TextMeshProUGUI>();
         points = 0;
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        textMesh.text = points.ToString("0");
+        OnScoreChanged += UpdateScoreUI;
     }
 
-    public void addPoints(float entryPoints)
+    private void OnDisable()
+    {
+        OnScoreChanged -= UpdateScoreUI;
+    }
+
+    public void AddPoints(float entryPoints)
     {
         points += entryPoints;
+        OnScoreChanged?.Invoke(points); // 🔹 El evento se ejecuta aquí dentro de la clase
+    }
+
+    private void UpdateScoreUI(float newScore)
+    {
+        textMesh.text = newScore.ToString("0");
     }
 }
+
