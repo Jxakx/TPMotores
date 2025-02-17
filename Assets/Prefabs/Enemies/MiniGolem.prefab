@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 6008403006606252204}
   m_Layer: 8
   m_Name: MiniGolem
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -300,14 +300,11 @@ MonoBehaviour:
   numRocks: 6
   rockSpeed: 5
   speed: 3
-  isExploding: 0
   patrolPoints:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  stopChasingDistance: 10
-  chaseSpeedMultiplier: 1.5
 --- !u!65 &6971929358678317037
 BoxCollider:
   m_ObjectHideFlags: 0

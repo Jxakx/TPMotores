@@ -19,8 +19,7 @@ public class MiniGolem : Entity
 
     protected override void Start()
     {
-        Player = GameObject.FindGameObjectWithTag("Player").transform;
-        OnAttack = Explode; // Se asigna el delegate, pero no se ejecuta automáticamente (solo cuando hay contacto)
+        OnAttack = Explode; // Se asigna el delegate, pero no se ejecuta automáticamente ()
     }
 
     protected override void Update()
@@ -85,7 +84,7 @@ public class MiniGolem : Entity
         if (!isExploding)
         {
             isExploding = true;
-            print("💥 Mini Golem explota y lanza piedras 💥");
+            print("Mini Golem explota y lanza piedritas");
 
 
             for (int i = 0; i < numRocks; i++)
@@ -102,7 +101,7 @@ public class MiniGolem : Entity
             {
                 if (hit.CompareTag("Player"))
                 {
-                    print("🔥 ¡El jugador recibió daño!");
+                    print("¡El jugador recibió daño!");
                     hit.GetComponent<Player>().TakeDamage(explosionDamage);
                 }
             }
