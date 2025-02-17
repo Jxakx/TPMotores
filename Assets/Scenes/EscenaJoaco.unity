@@ -514,37 +514,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 33516938}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &45602848
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 45602849}
-  m_Layer: 0
-  m_Name: Punto2
-  m_TagString: Untagged
-  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &45602849
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 45602848}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.341, y: 0.615, z: -0.38}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 515959550}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &47321592
 GameObject:
   m_ObjectHideFlags: 0
@@ -1128,10 +1097,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2320645125876060180, guid: 016f5f3225a3de747b021f095c665b61, type: 3}
-      propertyPath: Player
-      value: 
-      objectReference: {fileID: 1399901248}
     - target: {fileID: 3706234205994634940, guid: 016f5f3225a3de747b021f095c665b61, type: 3}
       propertyPath: m_Name
       value: MiniGolem (2)
@@ -1141,12 +1106,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1399901248}
     - target: {fileID: 6929952942878311711, guid: 016f5f3225a3de747b021f095c665b61, type: 3}
-      propertyPath: visionRange
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6929952942878311711, guid: 016f5f3225a3de747b021f095c665b61, type: 3}
-      propertyPath: patrolPoints.Array.size
-      value: 4
+      propertyPath: stopChasingDistance
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6929952942878311711, guid: 016f5f3225a3de747b021f095c665b61, type: 3}
       propertyPath: patrolPoints.Array.data[0]
@@ -2404,37 +2365,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!1 &168035000
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 168035001}
-  m_Layer: 0
-  m_Name: Punto3
-  m_TagString: Untagged
-  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &168035001
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 168035000}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.393, y: 0.615, z: 0.251}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 515959550}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &185736306
 GameObject:
   m_ObjectHideFlags: 0
@@ -5493,32 +5423,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31a9dd81ab09a6041b35647e17405fe1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &515959544 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3706234205994634940, guid: 016f5f3225a3de747b021f095c665b61, type: 3}
-  m_PrefabInstance: {fileID: 644236053450985284}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &515959545
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 515959544}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &515959550 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1999616100895573439, guid: 016f5f3225a3de747b021f095c665b61, type: 3}
@@ -12636,37 +12540,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1399901248}
---- !u!1 &1482083271
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1482083272}
-  m_Layer: 0
-  m_Name: Punto
-  m_TagString: Untagged
-  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1482083272
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1482083271}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.358, y: 0.615, z: 0.349}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 515959550}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1487934230
 GameObject:
   m_ObjectHideFlags: 0
@@ -12787,37 +12660,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1487934230}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1496665792
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1496665793}
-  m_Layer: 0
-  m_Name: Punto4
-  m_TagString: Untagged
-  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1496665793
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1496665792}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.335, y: 0.615, z: -0.411}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 515959550}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1519529967
 GameObject:
   m_ObjectHideFlags: 0
@@ -17217,10 +17059,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 261036010}
     m_Modifications:
-    - target: {fileID: -7149420136766513544, guid: 016f5f3225a3de747b021f095c665b61, type: 3}
-      propertyPath: m_Constraints
-      value: 112
-      objectReference: {fileID: 0}
     - target: {fileID: 1999616100895573439, guid: 016f5f3225a3de747b021f095c665b61, type: 3}
       propertyPath: m_LocalPosition.x
       value: -15.4
@@ -17265,22 +17103,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MiniGolem
       objectReference: {fileID: 0}
-    - target: {fileID: 6379612494624951889, guid: 016f5f3225a3de747b021f095c665b61, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: eb9afe35cc41cb9409b2f2c1025a2f45, type: 2}
     - target: {fileID: 6929952942878311711, guid: 016f5f3225a3de747b021f095c665b61, type: 3}
       propertyPath: Player
       value: 
       objectReference: {fileID: 1399901248}
-    - target: {fileID: 6929952942878311711, guid: 016f5f3225a3de747b021f095c665b61, type: 3}
-      propertyPath: visionRange
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6929952942878311711, guid: 016f5f3225a3de747b021f095c665b61, type: 3}
-      propertyPath: patrolPoints.Array.size
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 6929952942878311711, guid: 016f5f3225a3de747b021f095c665b61, type: 3}
       propertyPath: patrolPoints.Array.data[0]
       value: 
@@ -17297,27 +17123,10 @@ PrefabInstance:
       propertyPath: patrolPoints.Array.data[3]
       value: 
       objectReference: {fileID: 1910282408}
-    m_RemovedComponents:
-    - {fileID: 2810582774677255957, guid: 016f5f3225a3de747b021f095c665b61, type: 3}
-    - {fileID: 2320645125876060180, guid: 016f5f3225a3de747b021f095c665b61, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 1999616100895573439, guid: 016f5f3225a3de747b021f095c665b61, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1482083272}
-    - targetCorrespondingSourceObject: {fileID: 1999616100895573439, guid: 016f5f3225a3de747b021f095c665b61, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 45602849}
-    - targetCorrespondingSourceObject: {fileID: 1999616100895573439, guid: 016f5f3225a3de747b021f095c665b61, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 168035001}
-    - targetCorrespondingSourceObject: {fileID: 1999616100895573439, guid: 016f5f3225a3de747b021f095c665b61, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1496665793}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3706234205994634940, guid: 016f5f3225a3de747b021f095c665b61, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 515959545}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 016f5f3225a3de747b021f095c665b61, type: 3}
 --- !u!1001 &4161324622061538988
 PrefabInstance:

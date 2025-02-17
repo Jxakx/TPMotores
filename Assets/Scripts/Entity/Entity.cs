@@ -16,10 +16,9 @@ public abstract class Entity : MonoBehaviour, IDamageable
     public AttackDelegate OnAttack; // Delegate para manejar ataques
 
     public delegate void AttackDelegate();
-
     protected virtual void Start()
     {
-        // Los enemigos específicos asignarán su propio ataque en Start()
+        // Cada enemigo asignará su propio ataque en su clase específica
     }
 
     protected virtual void Update()
@@ -29,12 +28,6 @@ public abstract class Entity : MonoBehaviour, IDamageable
         if (playerInRange)
         {
             LookPlayer(); // Mira al jugador
-
-            // Si el enemigo tiene asignado un ataque, lo ejecuta
-            if (OnAttack != null)
-            {
-                OnAttack.Invoke();
-            }
         }
     }
 
