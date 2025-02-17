@@ -9,12 +9,12 @@ public class UI : MonoBehaviour
 
     private void OnEnable()
     {
-        GameManager.OnHPChanged += UpdateHP; // Se suscribe al evento de vida
+        Player.OnLifeChanged += UpdateHP; //Se suscribe al evento
     }
 
     private void OnDisable()
     {
-        GameManager.OnHPChanged -= UpdateHP; // Se desuscribe cuando se desactiva
+        Player.OnLifeChanged -= UpdateHP; //Se desuscribe al desactivarse
     }
 
     private void UpdateHP(int hp)

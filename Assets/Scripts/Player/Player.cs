@@ -118,8 +118,10 @@ public class Player : MonoBehaviour, IDamageable
         life -= value;
         if (life < 0) life = 0;
 
-
-        OnLifeChanged?.Invoke(life); // Notifica a la UI (Delegate)
+        if (OnLifeChanged != null)
+        {
+            OnLifeChanged.Invoke(life); // Notifica a la UI (Delegate)
+        }
 
         if (life == 0)
         {
@@ -148,14 +150,22 @@ public class Player : MonoBehaviour, IDamageable
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Entity enemy = collision.gameObject.GetComponent<Entity>();
-            if (enemy != null && isAssaulting)
+
+            if (enemy != null)
             {
-                enemy.TakeDamage(assaultDamage);
-                isAssaulting = false;
+                if (isAssaulting)
+                {
+                    enemy.TakeDamage(assaultDamage);
+                    isAssaulting = false;
+                }
+                else
+                {
+                    TakeDamage(enemy.damageAttack);
+                }
             }
             else
             {
-                TakeDamage(collision.gameObject.GetComponent<Golem>().damageAttack);
+                Debug.LogError("⚠ Error: Enemy no tiene componente Entity.");
             }
         }
 
