@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -45,6 +45,12 @@ public class Player : MonoBehaviour, IDamageable
     private float currentShootCooldown = 0.0f;
 
     private PlayerState playerState;
+
+    public delegate void JumpAction();
+    public static event JumpAction OnJumpEvent; // Evento para el Delegate cuando salta (Plataformas)
+
+    public delegate void LifeChanged(int newLife);
+    public static event LifeChanged OnLifeChanged; // Evento para la actualización ed vida
 
     private void Awake()
     {
@@ -95,24 +101,30 @@ public class Player : MonoBehaviour, IDamageable
         _moveController.Jump(isGrounded || isOnTrapPlatform);
         isGrounded = false;
         isOnTrapPlatform = false;
+
+        OnJumpEvent?.Invoke(); // Notifica a las plataformas que el jugador saltó (Delegate)
     }
 
     public void ReciveLife(int value)
     {
         life += value;
-        if (life > 10) life = 10;
-        UpdatePlayerState();
+        if (life > 10) life = 10; // Máxima vida permitida
+
+        OnLifeChanged?.Invoke(life); // Notifica a la UI (Delegate)
     }
 
     public void TakeDamage(int value)
     {
         life -= value;
-        _gameManager.LoseHP(value);
-        UpdatePlayerState();
+        if (life < 0) life = 0;
 
-        if (life <= 0)
+        if (OnLifeChanged != null)
         {
-            life = 0;
+            OnLifeChanged.Invoke(life); // Notifica a la UI (Delegate)
+        }
+
+        if (life == 0)
+        {
             Dead();
         }
     }
@@ -138,14 +150,22 @@ public class Player : MonoBehaviour, IDamageable
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Entity enemy = collision.gameObject.GetComponent<Entity>();
-            if (enemy != null && isAssaulting)
+
+            if (enemy != null)
             {
-                enemy.TakeDamage(assaultDamage);
-                isAssaulting = false;
+                if (isAssaulting)
+                {
+                    enemy.TakeDamage(assaultDamage);
+                    isAssaulting = false;
+                }
+                else
+                {
+                    TakeDamage(enemy.damageAttack);
+                }
             }
             else
             {
-                TakeDamage(collision.gameObject.GetComponent<Golem>().damageAttack);
+                Debug.LogError("⚠ Error: Enemy no tiene componente Entity.");
             }
         }
 
@@ -179,8 +199,14 @@ public class Player : MonoBehaviour, IDamageable
 
     private void Dead()
     {
-        Time.timeScale = 0;
-        gamePlayCanvas.onLose();
+
+        Time.timeScale = 0; 
+
+        if (gamePlayCanvas != null)
+        {
+            gamePlayCanvas.onLose(); 
+        }
+
         Destroy(gameObject, 1);
     }
 

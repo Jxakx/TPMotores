@@ -184,13 +184,12 @@ public class Golem : Entity
         }
     }
 
-    protected override void Attack()//AttackRock
+    protected void Attack() //AttackRock
     {
         if(counter >= timer)
         {
             counter = 0;
-            Instantiate(rock, pointRock.position, pointRock.rotation);
-        }
+            Instantiate(rock, pointRock.position, pointRock.rotation);        }
 
     }
 

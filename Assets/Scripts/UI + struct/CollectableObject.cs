@@ -11,7 +11,7 @@ public class CollectableObject : MonoBehaviour
 
     public void Collect()
     {
-        scoreScript.addPoints(collectableObject.score);
+        scoreScript.AddPoints(collectableObject.score);
         Destroy(gameObject);
     }
 }
