@@ -52,6 +52,40 @@ public class Player : MonoBehaviour, IDamageable
     public delegate void LifeChanged(int newLife);
     public static event LifeChanged OnLifeChanged; // Evento para la actualización ed vida
 
+    public int Life
+    {
+        get => life;
+        private set
+        {
+            life = Mathf.Clamp(value, 0, 10);
+            OnLifeChanged?.Invoke(life);
+            UpdatePlayerState();
+            if (life == 0) Dead();
+        }
+    }
+
+    public float Speed
+    {
+        get => _speed;
+        set => _speed = Mathf.Max(0, value);
+    }
+
+    public float JumpForce
+    {
+        get => _jumpForce;
+        set => _jumpForce = Mathf.Max(0, value);
+    }
+
+    public PlayerState CurrentState => playerState;
+
+    public bool IsGrounded
+    {
+        get => isGrounded;
+        private set => isGrounded = value;
+    }
+
+
+
     private void Awake()
     {
         _rB = GetComponent<Rigidbody>();
@@ -108,22 +142,20 @@ public class Player : MonoBehaviour, IDamageable
     public void ReciveLife(int value)
     {
         life += value;
-        if (life > 10) life = 10; // Máxima vida permitida
-
+        
         OnLifeChanged?.Invoke(life); // Notifica a la UI (Delegate)
     }
 
     public void TakeDamage(int value)
     {
         life -= value;
-        if (life < 0) life = 0;
-
+        
         if (OnLifeChanged != null)
         {
             OnLifeChanged.Invoke(life); // Notifica a la UI (Delegate)
         }
 
-        if (life == 0)
+        if(life == 0)
         {
             Dead();
         }

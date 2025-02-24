@@ -56,7 +56,7 @@ public class Golem : Entity
 
     protected override void Update()
     {
-        distanceToPlayer = Vector3.Distance(transform.position, targetPlayer.transform.position);
+        distanceToPlayer = Vector3.Distance(transform.position, Player.position);
         walk();       
 
     }
