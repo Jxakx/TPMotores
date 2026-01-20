@@ -2,49 +2,45 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+// TPFinal - [Tu Nombre]
+// Heredamos de Singleton<GameManager> para usar el genérico
+public class GameManager : Singleton<GameManager>
 {
-    public UI ui;
-    private int hp = 5;
+    [Header("UI References")]
+    public GameplayCanvasManager canvasManager; // Referencia al canvas que ya tienes
 
-    public delegate void HPChanged(int newHP);
-    public static event HPChanged OnHPChanged;
+    // CUMPLIENDO REQUISITO: Diccionarios
+    // Guardamos el nombre del item y la cantidad recogida
+    private Dictionary<string, int> inventory = new Dictionary<string, int>();
 
     private void Start()
     {
-        OnHPChanged?.Invoke(hp); 
+        // Nos suscribimos a la muerte del jugador
+        // Asegúrate de que Player.OnLifeChanged envíe 0 cuando muere o crea un evento OnDeath
     }
 
-    public void SetHP(int newHP)
+    // Método para agregar items al diccionario
+    public void AddItemToInventory(string itemName, int amount = 1)
     {
-        hp = newHP;
-        if (hp < 0) hp = 0;
-        OnHPChanged?.Invoke(hp); 
-    }
-
-    public void LoseHP(int damage)
-    {
-        hp -= damage;
-        if (hp < 0) hp = 0;
-
-        Debug.Log("⚠ Vida actual: " + hp);
-        OnHPChanged?.Invoke(hp); 
-
-        if (hp == 0)
+        if (inventory.ContainsKey(itemName))
         {
-            PlayerDie();
+            inventory[itemName] += amount;
         }
+        else
+        {
+            inventory.Add(itemName, amount);
+        }
+
+        Debug.Log($"Item recolectado: {itemName}. Cantidad total: {inventory[itemName]}");
     }
 
-    public void GainHP(int amount)
+    public void GameOver()
     {
-        hp += amount;
-        if (hp > 10) hp = 10;
-        OnHPChanged?.Invoke(hp);
+        if (canvasManager != null) canvasManager.onLose();
     }
 
-    private void PlayerDie()
+    public void Victory()
     {
-        ui.ShowGameOverScreen(); 
+        if (canvasManager != null) canvasManager.onWin();
     }
 }
