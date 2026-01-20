@@ -1,17 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-
-//TP2 Santiago Rodriguez Barba
+// TPFinal - Santiago Rodriguez Barba
 public class CollectableObject : MonoBehaviour
 {
-    public Item collectableObject;
-    public Score scoreScript;
+    public Item collectableObject; 
+    public Score scoreScript;     
 
     public void Collect()
     {
-        scoreScript.AddPoints(collectableObject.score);
+        // Sumar puntos 
+        if (scoreScript != null) scoreScript.AddPoints(collectableObject.score);
+
+        GameManager.Instance.AddItemToInventory(collectableObject.name);
+
         Destroy(gameObject);
     }
 }

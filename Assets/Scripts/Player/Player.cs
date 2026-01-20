@@ -231,13 +231,10 @@ public class Player : MonoBehaviour, IDamageable
 
     private void Dead()
     {
+        Time.timeScale = 0;
 
-        Time.timeScale = 0; 
-
-        if (gamePlayCanvas != null)
-        {
-            gamePlayCanvas.onLose(); 
-        }
+        // Llamada a través del Singleton
+        GameManager.Instance.GameOver();
 
         Destroy(gameObject, 1);
     }
